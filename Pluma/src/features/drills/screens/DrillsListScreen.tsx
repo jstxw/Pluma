@@ -1,7 +1,5 @@
 /**
- * DrillsListScreen - Main drills browsing screen
- *
- * Supports list and grid view modes with toggle button
+ * DrillsListScreen - Main drills browsing screen with grid/list toggle
  */
 
 import React, { useState } from 'react';
@@ -13,19 +11,12 @@ import {
   Text,
   Pressable,
 } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  Easing,
-} from 'react-native-reanimated';
 import { Screen } from '../../../shared/components/layout/Screen';
 import { SearchBar } from '../../../shared/components/ui/SearchBar';
 import { DrillCard } from '../components/DrillCard';
 import { DrillFilters } from '../components/DrillFilters';
 import { useDrills } from '../hooks/useDrills';
 import { useFilters } from '../hooks/useFilters';
-import { useFavorites } from '../../../app/providers/FavoritesProvider';
 import { colors } from '../../../shared/constants/theme';
 import { spacing, borderRadius } from '../../../shared/constants/spacing';
 import { typography } from '../../../shared/constants/typography';
@@ -39,87 +30,24 @@ interface DrillsListScreenProps {
   };
 }
 
-/**
- * View toggle button component with animation
- */
-function ViewToggleButton({
-  viewMode,
-  onToggle,
-}: {
-  viewMode: ViewMode;
-  onToggle: () => void;
-}) {
-  const scale = useSharedValue(1);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
-
-  const handlePressIn = () => {
-    scale.value = withTiming(0.9, { duration: 100, easing: Easing.out(Easing.ease) });
-  };
-
-  const handlePressOut = () => {
-    scale.value = withTiming(1, { duration: 150, easing: Easing.out(Easing.ease) });
-  };
-
-  return (
-    <Pressable
-      onPress={onToggle}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-    >
-      <Animated.View style={[styles.toggleButton, animatedStyle]}>
-        {viewMode === 'list' ? (
-          // Grid icon (4 squares)
-          <View style={styles.iconContainer}>
-            <View style={styles.gridIcon}>
-              <View style={styles.gridSquare} />
-              <View style={styles.gridSquare} />
-              <View style={styles.gridSquare} />
-              <View style={styles.gridSquare} />
-            </View>
-          </View>
-        ) : (
-          // List icon (3 lines)
-          <View style={styles.iconContainer}>
-            <View style={styles.listIcon}>
-              <View style={styles.listLine} />
-              <View style={styles.listLine} />
-              <View style={styles.listLine} />
-            </View>
-          </View>
-        )}
-      </Animated.View>
-    </Pressable>
-  );
-}
-
 export function DrillsListScreen({ navigation }: DrillsListScreenProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const { filters, updateFilter } = useFilters();
   const { data, isLoading, error } = useDrills(filters);
-  const { isFavorite, toggleFavorite } = useFavorites();
 
   const handleDrillPress = (id: string) => {
     navigation.navigate('DrillDetail', { drillId: id });
-  };
-
-  const handleFavoritePress = (id: string) => {
-    toggleFavorite(id);
   };
 
   const toggleViewMode = () => {
     setViewMode((prev) => (prev === 'list' ? 'grid' : 'list'));
   };
 
-  const renderDrill = ({ item, index }: { item: Drill; index: number }) => (
+  const renderDrill = ({ item }: { item: Drill }) => (
     <View style={viewMode === 'grid' ? styles.gridItem : undefined}>
       <DrillCard
         drill={item}
         onPress={handleDrillPress}
-        onFavorite={handleFavoritePress}
-        isFavorited={isFavorite(item.id)}
         compact={viewMode === 'grid'}
       />
     </View>
@@ -129,7 +57,24 @@ export function DrillsListScreen({ navigation }: DrillsListScreenProps) {
     <Screen edges={['top']}>
       <View style={styles.header}>
         <Text style={styles.title}>Drills</Text>
-        <ViewToggleButton viewMode={viewMode} onToggle={toggleViewMode} />
+        <Pressable onPress={toggleViewMode} style={styles.toggleButton}>
+          {viewMode === 'list' ? (
+            // Grid icon (4 squares)
+            <View style={styles.gridIcon}>
+              <View style={styles.gridSquare} />
+              <View style={styles.gridSquare} />
+              <View style={styles.gridSquare} />
+              <View style={styles.gridSquare} />
+            </View>
+          ) : (
+            // List icon (3 lines)
+            <View style={styles.listIcon}>
+              <View style={styles.listLine} />
+              <View style={styles.listLine} />
+              <View style={styles.listLine} />
+            </View>
+          )}
+        </Pressable>
       </View>
       <SearchBar
         value={filters.search || ''}
@@ -149,7 +94,7 @@ export function DrillsListScreen({ navigation }: DrillsListScreenProps) {
         </View>
       ) : (
         <FlatList
-          key={viewMode} // Force re-render when switching modes
+          key={viewMode}
           data={data?.drills || []}
           renderItem={renderDrill}
           keyExtractor={(item) => item.id}
@@ -182,10 +127,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  iconContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   gridIcon: {
     width: 20,
     height: 20,
@@ -200,12 +141,12 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   listIcon: {
-    width: 20,
-    height: 16,
+    width: 18,
+    height: 14,
     justifyContent: 'space-between',
   },
   listLine: {
-    width: 20,
+    width: 18,
     height: 3,
     backgroundColor: colors.accentDark,
     borderRadius: 1.5,

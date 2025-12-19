@@ -32,7 +32,7 @@ export interface DrillFilters {
   /** Filter by difficulty level */
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   /** Filter by drill type */
-  type?: 'shot' | 'footwork' | 'combination';
+  type?: 'shot' | 'footwork' | 'rally';
   /** Filter by tag IDs */
   tags?: string[];
   /** Filter by minimum duration (minutes) */

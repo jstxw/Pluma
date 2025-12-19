@@ -17,7 +17,7 @@ export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 /**
  * Types of drills available
  */
-export type DrillType = 'shot' | 'footwork' | 'combination';
+export type DrillType = 'shot' | 'footwork' | 'rally';
 
 /**
  * Categories for organizing tags

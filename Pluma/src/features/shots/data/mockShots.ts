@@ -155,7 +155,7 @@ export const mockShots: Shot[] = [
   },
   {
     id: 'shot-3',
-    name: 'Low Serve',
+    name: 'Backhand Serve',
     description:
       'A short serve that travels low over the net and lands near the front service line. The primary serve in doubles and commonly used in singles.',
     difficulty: 'beginner',
@@ -227,7 +227,7 @@ export const mockShots: Shot[] = [
         title: 'Stance',
         description: 'Set up for power generation with proper weight transfer.',
         keyPoints: [
-          'Stand further from service line than low serve',
+          'Stand further from service line than backhand serve',
           'Side-on stance for power',
           'Weight on back foot',
           'Shuttle held at arm\'s length',
@@ -239,7 +239,7 @@ export const mockShots: Shot[] = [
         title: 'Swing and Contact',
         description: 'Use a longer swing for height and depth.',
         keyPoints: [
-          'Fuller backswing than low serve',
+          'Fuller backswing than backhand serve',
           'Weight transfer from back to front foot',
           'Contact at full arm extension',
           'Hit upward at approximately 45 degrees',
@@ -541,6 +541,56 @@ export const mockShots: Shot[] = [
           'Brush across shuttle',
           'Slight outside contact point',
           'Gentle touch - don\'t hit hard',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'shot-16',
+    name: 'Cross Drop',
+    description:
+      'A drop shot played from the rear court that lands diagonally into the opponent\'s front court. Used to pull opponents forward and sideways, create space, and force weak replies.',
+    difficulty: 'intermediate',
+    tags: getTagsByIds(['tag-intermediate', 'tag-overhead', 'tag-forehand', 'tag-rearcourt', 'tag-deceptive', 'tag-offensive']),
+    relatedDrills: ['drill-6'],
+    technique: [
+      {
+        id: 'step-16-1',
+        order: 1,
+        title: 'Preparation (Looks Like a Clear)',
+        description:
+          'Set up exactly like a clear so the opponent cannot read the cross drop early.',
+        keyPoints: [
+          'Use the same approach and footwork as a clear',
+          'Show the same backswing and shoulder rotation',
+          'Keep your body side-on and stable',
+          'Hold the racket up early to avoid rushing',
+        ],
+      },
+      {
+        id: 'step-16-2',
+        order: 2,
+        title: 'Contact Point (In Front and High)',
+        description:
+          'Make contact high and slightly in front to control angle and keep the shuttle tight.',
+        keyPoints: [
+          'Contact the shuttle at your highest comfortable point',
+          'Hit slightly in front of your body, not behind your head',
+          'Use a relaxed grip for touch control',
+          'Avoid "scooping" upward (that makes it float)',
+        ],
+      },
+      {
+        id: 'step-16-3',
+        order: 3,
+        title: 'Racket Face and Direction',
+        description:
+          'Angle the racket face to send the shuttle diagonally while keeping the same swing shape.',
+        keyPoints: [
+          'Keep racket face angled toward target corner',
+          'Slice gently across the shuttle',
+          'Maintain soft touch for tight net clearance',
+          'Follow through toward diagonal target',
         ],
       },
     ],

@@ -6,18 +6,12 @@
  * - Minimal decision-making
  * - Focused on presence rather than action
  * - A calm entry point, not a dashboard
- * - Shows favorited drills for quick access
  */
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Screen } from '../../../shared/components/layout/Screen';
 import { ScrollView } from '../../../shared/components/layout/ScrollView';
-import { Card } from '../../../shared/components/ui/Card';
-import { Pill } from '../../../shared/components/ui/Pill';
-import { useFavorites } from '../../../app/providers/FavoritesProvider';
-import { useDrills } from '../../drills/hooks/useDrills';
 import { colors } from '../../../shared/constants/theme';
 import { spacing, borderRadius } from '../../../shared/constants/spacing';
 import { typography } from '../../../shared/constants/typography';
@@ -41,31 +35,14 @@ function getTodayInspiration() {
 }
 
 export function HomeScreen() {
-  const navigation = useNavigation();
   const inspiration = getTodayInspiration();
   const currentHour = new Date().getHours();
-  const { favorites, isFavorite, toggleFavorite } = useFavorites();
-  const { data: drillsData } = useDrills();
-
-  // Filter drills to get only favorites
-  const favoriteDrills = React.useMemo(() => {
-    if (!drillsData?.drills) return [];
-    return drillsData.drills.filter((drill) => favorites.includes(drill.id));
-  }, [drillsData?.drills, favorites]);
 
   // Time-based greeting
   const getGreeting = () => {
     if (currentHour < 12) return 'Good morning';
     if (currentHour < 17) return 'Good afternoon';
     return 'Good evening';
-  };
-
-  const handleDrillPress = (drillId: string) => {
-    // Navigate to drills tab and then to detail
-    (navigation as any).navigate('DrillsTab', {
-      screen: 'DrillDetail',
-      params: { drillId },
-    });
   };
 
   return (
@@ -77,29 +54,6 @@ export function HomeScreen() {
           <Text style={styles.welcome}>Welcome to Pluma</Text>
         </View>
 
-        {/* Favorite Drills Section */}
-        
-
-        {/* Hero card - inspiring visual element */}
-        <View style={styles.heroCard}>
-          <View style={styles.heroContent}>
-            {/* Decorative shuttlecock icon */}
-            <View style={styles.iconContainer}>
-              <View style={styles.shuttleCork} />
-              <View style={styles.shuttleFeathers}>
-                <View style={[styles.feather, styles.feather1]} />
-                <View style={[styles.feather, styles.feather2]} />
-                <View style={[styles.feather, styles.feather3]} />
-              </View>
-            </View>
-
-            <Text style={styles.heroTitle}>Your Journey</Text>
-            <Text style={styles.heroSubtitle}>
-              Every great player started with the basics.{'\n'}
-              Take your time. Enjoy the process.
-            </Text>
-          </View>
-        </View>
 
         {/* Daily inspiration section */}
         <View style={styles.inspirationSection}>
@@ -109,37 +63,6 @@ export function HomeScreen() {
             <Text style={styles.quoteText}>{`"${inspiration.quote}"`}</Text>
           </View>
         </View>
-
-        {favoriteDrills.length > 0 && (
-          <View style={styles.favoritesSection}>
-            <Text style={styles.sectionLabel}>YOUR FAVORITE DRILLS</Text>
-            <View style={styles.favoritesContainer}>
-              {favoriteDrills.map((drill) => (
-                <Card
-                  key={drill.id}
-                  onPress={() => handleDrillPress(drill.id)}
-                  style={styles.favoriteCard}
-                >
-                  <View style={styles.favoriteCardInner}>
-                    <View style={styles.favoriteCardContent}>
-                      <Text style={styles.favoriteCardTitle} numberOfLines={1}>
-                        {drill.title}
-                      </Text>
-                      <View style={styles.favoriteCardTags}>
-                        <Pill label={drill.difficulty} />
-                      </View>
-                    </View>
-                    <Card.Favorite
-                      isFavorited={isFavorite(drill.id)}
-                      onPress={() => toggleFavorite(drill.id)}
-                      style={styles.favoriteButton}
-                    />
-                  </View>
-                </Card>
-              ))}
-            </View>
-          </View>
-        )}
 
         {/* Bottom spacer for tab bar */}
         <View style={styles.bottomSpacer} />
@@ -250,52 +173,6 @@ const styles = StyleSheet.create({
     color: colors.primaryText,
     fontStyle: 'italic',
     lineHeight: 26,
-  },
-
-  // Favorites Section
-  favoritesSection: {
-    marginBottom: spacing['2xl'],
-  },
-  favoritesContainer: {
-    gap: spacing.md,
-  },
-  favoriteCard: {
-    backgroundColor: colors.white,
-  },
-  favoriteCardInner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: spacing.base,
-  },
-  favoriteCardContent: {
-    flex: 1,
-    gap: spacing.sm,
-  },
-  favoriteCardTitle: {
-    ...typography.h3,
-    color: colors.primaryText,
-    fontSize: 18,
-  },
-  favoriteCardTags: {
-    flexDirection: 'row',
-    gap: spacing.xs,
-  },
-  favoriteButton: {
-    position: 'relative',
-    top: 0,
-    right: 0,
-  },
-
-  // Gentle Prompt
-  promptSection: {
-    alignItems: 'center',
-    paddingVertical: spacing['2xl'],
-  },
-  promptText: {
-    ...typography.body,
-    color: colors.secondaryText,
-    textAlign: 'center',
-    lineHeight: 24,
   },
 
   // Bottom spacer for tab bar
