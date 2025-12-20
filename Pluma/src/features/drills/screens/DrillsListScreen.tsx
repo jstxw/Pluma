@@ -2,7 +2,7 @@
  * DrillsListScreen - Main drills browsing screen with grid/list toggle
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   FlatList,
@@ -12,7 +12,7 @@ import {
   Pressable,
 } from 'react-native';
 import { Screen } from '../../../shared/components/layout/Screen';
-import { SearchBar } from '../../../shared/components/ui/SearchBar';
+import { SearchBar } from '../../../shared/components/ui';
 import { DrillCard } from '../components/DrillCard';
 import { DrillFilters } from '../components/DrillFilters';
 import { useDrills } from '../hooks/useDrills';
@@ -28,12 +28,28 @@ interface DrillsListScreenProps {
   navigation: {
     navigate: (screen: string, params?: { drillId: string }) => void;
   };
+  route?: {
+    params?: { tagFilter?: string };
+  };
 }
 
-export function DrillsListScreen({ navigation }: DrillsListScreenProps) {
+export function DrillsListScreen({ navigation, route }: DrillsListScreenProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
-  const { filters, updateFilter } = useFilters();
+  const tagFilter = route?.params?.tagFilter;
+  const { filters, updateFilter, setFilters } = useFilters({
+    tags: tagFilter ? [tagFilter] : undefined,
+  });
   const { data, isLoading, error } = useDrills(filters);
+
+  // Update filters when route params change
+  useEffect(() => {
+    if (tagFilter) {
+      setFilters((prev) => ({
+        ...prev,
+        tags: [tagFilter],
+      }));
+    }
+  }, [tagFilter, setFilters]);
 
   const handleDrillPress = (id: string) => {
     navigation.navigate('DrillDetail', { drillId: id });
@@ -102,6 +118,7 @@ export function DrillsListScreen({ navigation }: DrillsListScreenProps) {
           contentContainerStyle={styles.list}
           columnWrapperStyle={viewMode === 'grid' ? styles.gridRow : undefined}
           showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         />
       )}
     </Screen>
@@ -156,9 +173,11 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingBottom: spacing['3xl'],
+    paddingHorizontal: 0,
   },
   gridRow: {
     justifyContent: 'space-between',
+    paddingHorizontal: 0,
   },
   gridItem: {
     width: '48%',

@@ -53,6 +53,7 @@ export const mockShots: Shot[] = [
     description:
       'A high, deep shot hit from the rear court to the opponent\'s rear court. The fundamental defensive and rally-building shot in badminton.',
     difficulty: 'beginner',
+    imageUrl: require('../shot_images/Clear_Badminton.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-overhead', 'tag-forehand', 'tag-rearcourt', 'tag-defensive']),
     relatedDrills: ['drill-6', 'drill-14'],
     technique: [
@@ -112,6 +113,7 @@ export const mockShots: Shot[] = [
     description:
       'A soft shot played from the rear court that falls gently just over the net. Used to move opponents forward and create openings.',
     difficulty: 'beginner',
+    imageUrl: require('../shot_images/Drop_Badminton.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-overhead', 'tag-forehand', 'tag-rearcourt', 'tag-offensive']),
     relatedDrills: ['drill-6'],
     technique: [
@@ -159,6 +161,7 @@ export const mockShots: Shot[] = [
     description:
       'A short serve that travels low over the net and lands near the front service line. The primary serve in doubles and commonly used in singles.',
     difficulty: 'beginner',
+    imageUrl: require('../shot_images/Backhand_Serve_Badminton.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-underarm', 'tag-forehand', 'tag-frontcourt', 'tag-neutral']),
     relatedDrills: ['drill-3'],
     technique: [
@@ -218,6 +221,7 @@ export const mockShots: Shot[] = [
     description:
       'A deep serve hit high to the back of the service court. Primarily used in singles to push the opponent to the rear court.',
     difficulty: 'beginner',
+    imageUrl: require('../shot_images/Forehand_Serve_Badminton.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-underarm', 'tag-forehand', 'tag-rearcourt', 'tag-defensive']),
     relatedDrills: ['drill-3'],
     technique: [
@@ -265,6 +269,7 @@ export const mockShots: Shot[] = [
     description:
       'A delicate shot played from near the net that just clears the tape and falls close to the net on the opponent\'s side.',
     difficulty: 'beginner',
+    imageUrl: require('../shot_images/Net_Badminton.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-underarm', 'tag-forehand', 'tag-frontcourt', 'tag-neutral']),
     relatedDrills: ['drill-4', 'drill-9'],
     technique: [
@@ -316,6 +321,7 @@ export const mockShots: Shot[] = [
     description:
       'The most powerful attacking shot in badminton. A steep, downward shot hit with maximum force to end the rally.',
     difficulty: 'intermediate',
+    imageUrl: require('../shot_images/Smash_Badminton.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-overhead', 'tag-forehand', 'tag-rearcourt', 'tag-offensive']),
     relatedDrills: ['drill-11'],
     technique: [
@@ -375,6 +381,7 @@ export const mockShots: Shot[] = [
     description:
       'A flat, fast shot hit horizontally at shoulder height. Used for quick exchanges and to maintain pressure.',
     difficulty: 'intermediate',
+    imageUrl: require('../shot_images/Drive_Badminton.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-forehand', 'tag-midcourt', 'tag-offensive']),
     relatedDrills: ['drill-8'],
     technique: [
@@ -422,6 +429,7 @@ export const mockShots: Shot[] = [
     description:
       'An underarm shot hit from the front court high to the opponent\'s rear court. A defensive shot used to reset the rally.',
     difficulty: 'intermediate',
+    imageUrl: require('../shot_images/Lift_Badminton.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-underarm', 'tag-forehand', 'tag-frontcourt', 'tag-defensive']),
     relatedDrills: ['drill-10'],
     technique: [
@@ -469,6 +477,7 @@ export const mockShots: Shot[] = [
     description:
       'A clear shot played with the backhand from the rear court. An essential defensive skill for covering the backhand side.',
     difficulty: 'intermediate',
+    imageUrl: require('../shot_images/Clear_Badminton.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-overhead', 'tag-backhand', 'tag-rearcourt', 'tag-defensive']),
     relatedDrills: ['drill-14'],
     technique: [
@@ -516,6 +525,7 @@ export const mockShots: Shot[] = [
     description:
       'A net shot played diagonally across the court. Adds deception and creates difficult angles for opponents.',
     difficulty: 'intermediate',
+    imageUrl: require('../shot_images/Net_Badminton.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-underarm', 'tag-forehand', 'tag-frontcourt', 'tag-deceptive']),
     relatedDrills: ['drill-9'],
     technique: [
@@ -551,6 +561,7 @@ export const mockShots: Shot[] = [
     description:
       'A drop shot played from the rear court that lands diagonally into the opponent\'s front court. Used to pull opponents forward and sideways, create space, and force weak replies.',
     difficulty: 'intermediate',
+    imageUrl: require('../shot_images/Drop_Badminton.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-overhead', 'tag-forehand', 'tag-rearcourt', 'tag-deceptive', 'tag-offensive']),
     relatedDrills: ['drill-6'],
     technique: [
@@ -605,6 +616,7 @@ export const mockShots: Shot[] = [
     description:
       'A smash executed while jumping to achieve a steeper angle and more power. The most devastating attacking shot in badminton.',
     difficulty: 'advanced',
+    imageUrl: require('../shot_images/Jump_Smash_Badminton.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-overhead', 'tag-forehand', 'tag-rearcourt', 'tag-offensive']),
     relatedDrills: ['drill-11'],
     technique: [
@@ -664,6 +676,7 @@ export const mockShots: Shot[] = [
     description:
       'A deceptive drop shot using reverse slice to change shuttle direction unexpectedly. Creates confusion and wrong-foots opponents.',
     difficulty: 'advanced',
+    imageUrl: require('../shot_images/Reverse_Drop_Badminton.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-overhead', 'tag-forehand', 'tag-rearcourt', 'tag-deceptive']),
     relatedDrills: ['drill-12'],
     technique: [
@@ -711,6 +724,7 @@ export const mockShots: Shot[] = [
     description:
       'An attacking smash from the backhand side. A rare but powerful weapon when mastered.',
     difficulty: 'advanced',
+    imageUrl: require('../shot_images/Smash_Badminton.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-overhead', 'tag-backhand', 'tag-rearcourt', 'tag-offensive']),
     relatedDrills: ['drill-14'],
     technique: [
@@ -758,6 +772,7 @@ export const mockShots: Shot[] = [
     description:
       'A half-smash that sticks to the opponent\'s body. Difficult to return due to awkward position required.',
     difficulty: 'advanced',
+    imageUrl: require('../shot_images/Stick_Smash_Badminton.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-overhead', 'tag-forehand', 'tag-rearcourt', 'tag-offensive']),
     relatedDrills: ['drill-11', 'drill-12'],
     technique: [
@@ -793,6 +808,7 @@ export const mockShots: Shot[] = [
     description:
       'An advanced net shot that spins and tumbles, making it extremely difficult to return cleanly.',
     difficulty: 'advanced',
+    imageUrl: require('../shot_images/Net_Badminton.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-underarm', 'tag-forehand', 'tag-frontcourt', 'tag-deceptive']),
     relatedDrills: ['drill-9'],
     technique: [

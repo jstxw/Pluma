@@ -9,9 +9,11 @@
  *     ├── DrillsStack
  *     │   ├── DrillsListScreen
  *     │   └── DrillDetailScreen
- *     └── ShotsStack
- *         ├── ShotsListScreen
- *         └── ShotDetailScreen
+ *     ├── ShotsStack
+ *     │   ├── ShotsListScreen
+ *     │   └── ShotDetailScreen
+ *     └── TrainingStack
+ *         └── TrainingScreen
  */
 
 import type { NavigatorScreenParams } from '@react-navigation/native';
@@ -30,7 +32,7 @@ export type HomeStackParamList = {
  * Drills Stack param list
  */
 export type DrillsStackParamList = {
-  DrillsList: undefined;
+  DrillsList: { tagFilter?: string } | undefined;
   DrillDetail: { drillId: string };
 };
 
@@ -43,12 +45,20 @@ export type ShotsStackParamList = {
 };
 
 /**
+ * Training Stack param list
+ */
+export type TrainingStackParamList = {
+  Training: undefined;
+};
+
+/**
  * Tab Navigator param list
  */
 export type TabParamList = {
   HomeTab: NavigatorScreenParams<HomeStackParamList>;
   DrillsTab: NavigatorScreenParams<DrillsStackParamList>;
   ShotsTab: NavigatorScreenParams<ShotsStackParamList>;
+  TrainingTab: NavigatorScreenParams<TrainingStackParamList>;
 };
 
 /**
@@ -105,10 +115,19 @@ export type ShotDetailScreenProps = CompositeScreenProps<
   >
 >;
 
+// Training Stack screen props
+export type TrainingScreenProps = CompositeScreenProps<
+  NativeStackScreenProps<TrainingStackParamList, 'Training'>,
+  CompositeScreenProps<
+    BottomTabScreenProps<TabParamList, 'TrainingTab'>,
+    NativeStackScreenProps<RootStackParamList>
+  >
+>;
+
 /**
  * Tab keys for navigation
  */
-export type TabKey = 'HomeTab' | 'DrillsTab' | 'ShotsTab';
+export type TabKey = 'HomeTab' | 'DrillsTab' | 'ShotsTab' | 'TrainingTab';
 
 /**
  * Declare global navigation types for useNavigation hook

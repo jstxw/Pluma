@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
   // Compact styles for grid view
   compactContainer: {
     marginBottom: spacing.base,
+    height: 220, // Fixed height for uniform card sizes
   },
   compactImage: {
     height: 120,
@@ -112,8 +113,10 @@ const styles = StyleSheet.create({
     right: spacing.sm,
   },
   compactContent: {
+    flex: 1,
     padding: spacing.md,
     gap: spacing.sm,
+    justifyContent: 'flex-end', // Push content to bottom
   },
   compactTitle: {
     ...typography.body,

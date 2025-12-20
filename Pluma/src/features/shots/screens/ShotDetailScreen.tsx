@@ -3,11 +3,10 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { Screen } from '../../../shared/components/layout/Screen';
 import { ScrollView } from '../../../shared/components/layout/ScrollView';
-import { Button } from '../../../shared/components/ui/Button';
-import { Pill } from '../../../shared/components/ui/Pill';
+import { Button, Pill, ScrollIndicatorContainer } from '../../../shared/components/ui';
 import { useShot } from '../hooks/useShots';
 import { colors } from '../../../shared/constants/theme';
 import { spacing } from '../../../shared/constants/spacing';
@@ -57,42 +56,48 @@ export function ShotDetailScreen({ route, navigation }: ShotDetailScreenProps) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView>
-        {/* Hero Image Placeholder */}
-        <View style={styles.heroImage} />
+      <ScrollIndicatorContainer>
+        <ScrollView>
+          {/* Hero Image */}
+          {shot.imageUrl ? (
+            <Image source={shot.imageUrl} style={styles.heroImage} resizeMode="cover" />
+          ) : (
+            <View style={styles.heroImage} />
+          )}
 
-        <View style={styles.content}>
-          <Text style={styles.title}>{shot.name}</Text>
+          <View style={styles.content}>
+            <Text style={styles.title}>{shot.name}</Text>
 
-          <View style={styles.tags}>
-            <Pill label={shot.difficulty} />
-          </View>
-
-          <Text style={styles.description}>{shot.description}</Text>
-
-          <Text style={styles.sectionTitle}>Technique</Text>
-          {shot.technique.map((step, index) => (
-            <View key={step.id} style={styles.techniqueStep}>
-              <View style={styles.stepHeader}>
-                <View style={styles.stepNumber}>
-                  <Text style={styles.stepNumberText}>{index + 1}</Text>
-                </View>
-                <Text style={styles.stepTitle}>{step.title}</Text>
-              </View>
-              <Text style={styles.stepDescription}>{step.description}</Text>
-              {step.keyPoints && (
-                <View style={styles.keyPoints}>
-                  {step.keyPoints.map((point, i) => (
-                    <Text key={i} style={styles.keyPoint}>
-                      • {point}
-                    </Text>
-                  ))}
-                </View>
-              )}
+            <View style={styles.tags}>
+              <Pill label={shot.difficulty} />
             </View>
-          ))}
-        </View>
-      </ScrollView>
+
+            <Text style={styles.description}>{shot.description}</Text>
+
+            <Text style={styles.sectionTitle}>Technique</Text>
+            {shot.technique.map((step, index) => (
+              <View key={step.id} style={styles.techniqueStep}>
+                <View style={styles.stepHeader}>
+                  <View style={styles.stepNumber}>
+                    <Text style={styles.stepNumberText}>{index + 1}</Text>
+                  </View>
+                  <Text style={styles.stepTitle}>{step.title}</Text>
+                </View>
+                <Text style={styles.stepDescription}>{step.description}</Text>
+                {step.keyPoints && (
+                  <View style={styles.keyPoints}>
+                    {step.keyPoints.map((point, i) => (
+                      <Text key={i} style={styles.keyPoint}>
+                        • {point}
+                      </Text>
+                    ))}
+                  </View>
+                )}
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+      </ScrollIndicatorContainer>
     </Screen>
   );
 }
@@ -120,6 +125,8 @@ const styles = StyleSheet.create({
     height: 240,
     backgroundColor: colors.lightGray,
     borderRadius: 24,
+    borderWidth: 2,
+    borderColor: '#000',
     marginBottom: spacing.xl,
   },
   content: {
@@ -148,13 +155,13 @@ const styles = StyleSheet.create({
     marginBottom: spacing.base,
   },
   techniqueStep: {
-    marginBottom: spacing.xl,
+    marginBottom: spacing.lg,
   },
   stepHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
-    marginBottom: spacing.sm,
+    gap: spacing.sm,
+    marginBottom: spacing.xs,
   },
   stepNumber: {
     width: 32,
@@ -163,31 +170,33 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accentDark,
     justifyContent: 'center',
     alignItems: 'center',
+    flexShrink: 0,
   },
   stepNumberText: {
-    ...typography.body,
+    fontSize: 15,
     fontWeight: '600',
     color: colors.white,
   },
   stepTitle: {
-    ...typography.h3,
+    fontSize: 18,
+    fontWeight: '600',
     color: colors.primaryText,
     flex: 1,
   },
   stepDescription: {
-    ...typography.body,
+    fontSize: 15,
     color: colors.secondaryText,
     marginLeft: 44,
-    lineHeight: 24,
+    lineHeight: 21,
   },
   keyPoints: {
     marginLeft: 44,
-    marginTop: spacing.sm,
+    marginTop: spacing.xs,
   },
   keyPoint: {
-    ...typography.body,
+    fontSize: 15,
     color: colors.primaryText,
-    lineHeight: 24,
+    lineHeight: 21,
   },
   centered: {
     flex: 1,

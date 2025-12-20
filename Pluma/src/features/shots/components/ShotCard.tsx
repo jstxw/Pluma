@@ -38,8 +38,12 @@ export function ShotCard({
         onPress={() => onPress?.(shot.id)}
         style={styles.compactContainer}
       >
-        <Card.Image style={styles.compactImage}>
-          <View style={styles.imagePlaceholder} />
+        <Card.Image 
+          source={shot.imageUrl ? shot.imageUrl : undefined} 
+          style={styles.compactImage}
+          imageStyle={styles.compactImageInner}
+        >
+          {!shot.imageUrl && <View style={styles.imagePlaceholder} />}
           {onFavorite && (
             <Card.Favorite
               isFavorited={isFavorited}
@@ -60,8 +64,8 @@ export function ShotCard({
 
   return (
     <Card onPress={() => onPress?.(shot.id)} style={styles.container}>
-      <Card.Image>
-        <View style={styles.imagePlaceholder} />
+      <Card.Image source={shot.imageUrl ? shot.imageUrl : undefined}>
+        {!shot.imageUrl && <View style={styles.imagePlaceholder} />}
         {onFavorite && (
           <Card.Favorite
             isFavorited={isFavorited}
@@ -104,6 +108,9 @@ const styles = StyleSheet.create({
   },
   compactImage: {
     height: 120,
+  },
+  compactImageInner: {
+    borderRadius: 0,
   },
   compactFavoriteButton: {
     top: spacing.sm,

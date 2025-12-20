@@ -65,6 +65,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 15,
+    imageUrl: require('../images/basic_shadow_footwork.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-conditioning']),
     instructions: [
       {

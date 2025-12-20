@@ -25,6 +25,7 @@ import {
   TextStyle,
   ImageBackground,
   ImageSourcePropType,
+  ImageStyle,
 } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -75,6 +76,8 @@ export interface CardImageProps {
   children?: React.ReactNode;
   /** Additional styles */
   style?: ViewStyle;
+  /** Additional image styles (for ImageBackground imageStyle prop) */
+  imageStyle?: ImageStyle;
 }
 
 /**
@@ -191,8 +194,10 @@ function CardImage({
   aspectRatio = 16 / 10,
   children,
   style,
+  imageStyle,
 }: CardImageProps) {
   const imageStyles = [styles.image, { aspectRatio }, style];
+  const imageInnerStyles = [styles.imageInner, imageStyle];
 
   // If no source provided, show placeholder
   if (!source) {
@@ -213,7 +218,8 @@ function CardImage({
     <ImageBackground
       source={source}
       style={imageStyles}
-      imageStyle={styles.imageInner}
+      imageStyle={imageInnerStyles}
+      resizeMode="cover"
     >
       {showGradient && (
         <LinearGradient
@@ -321,6 +327,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: borderRadius.card, // 24px
     overflow: 'hidden',
+    borderWidth: 2,
+    borderColor: '#000',
     // Shadow for depth
     shadowColor: colors.black,
     shadowOffset: { width: 0, height: 2 },

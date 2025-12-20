@@ -12,9 +12,14 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Screen } from '../../../shared/components/layout/Screen';
 import { ScrollView } from '../../../shared/components/layout/ScrollView';
+import { ScrollIndicatorContainer } from '../../../shared/components/ui';
 import { colors } from '../../../shared/constants/theme';
 import { spacing, borderRadius } from '../../../shared/constants/spacing';
 import { typography } from '../../../shared/constants/typography';
+import { SlidingDrillCards, CategoryBox, Accordion } from '../components';
+import { featuredDrills } from '../data/featuredDrills';
+import { faqData } from '../data/faqData';
+import type { HomeScreenProps } from '../../../app/navigation/types';
 
 // Daily inspiration quotes for badminton players
 const INSPIRATIONS = [
@@ -34,7 +39,7 @@ function getTodayInspiration() {
   return INSPIRATIONS[dayOfYear % INSPIRATIONS.length];
 }
 
-export function HomeScreen() {
+export function HomeScreen({ navigation }: HomeScreenProps) {
   const inspiration = getTodayInspiration();
   const currentHour = new Date().getHours();
 
@@ -45,28 +50,107 @@ export function HomeScreen() {
     return 'Good evening';
   };
 
+  const handleDrillPress = (drill: any) => {
+    // Navigate to specific drill detail page
+    navigation.navigate('DrillsTab', { 
+      screen: 'DrillDetail',
+      params: { drillId: drill.id }
+    });
+  };
+
+  const handleFavoritePress = (drill: any) => {
+    console.log('Favorite toggled:', drill.title);
+    // TODO: Toggle favorite in state/storage
+  };
+
+  const handleCategoryPress = (category: string) => {
+    if (category === 'Footwork') {
+      // Navigate to drills with footwork tag filter
+      navigation.navigate('DrillsTab', {
+        screen: 'DrillsList',
+        params: { tagFilter: 'tag-footwork' }
+      });
+    } else if (category === 'Accuracy') {
+      // Navigate to drills with accuracy tag filter
+      navigation.navigate('DrillsTab', {
+        screen: 'DrillsList',
+        params: { tagFilter: 'tag-accuracy' }
+      });
+    } else if (category === 'Control') {
+      // Navigate to drills with control tag filter
+      navigation.navigate('DrillsTab', {
+        screen: 'DrillsList',
+        params: { tagFilter: 'tag-control' }
+      });
+    } else if (category === 'Power') {
+      // Navigate to drills with power tag filter
+      navigation.navigate('DrillsTab', {
+        screen: 'DrillsList',
+        params: { tagFilter: 'tag-power' }
+      });
+    } else {
+      console.log('Category pressed:', category);
+      // TODO: Navigate to other category screens
+    }
+  };
+
   return (
     <Screen edges={['top']}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Header with personalized greeting */}
-        <View style={styles.header}>
-          <Text style={styles.greeting}>{getGreeting()}, Player</Text>
-          <Text style={styles.welcome}>Welcome to Pluma</Text>
-        </View>
-
-
-        {/* Daily inspiration section */}
-        <View style={styles.inspirationSection}>
-          <Text style={styles.sectionLabel}>{"TODAY'S FOCUS"}</Text>
-          <View style={styles.inspirationCard}>
-            <Text style={styles.focusTag}>{inspiration.focus}</Text>
-            <Text style={styles.quoteText}>{`"${inspiration.quote}"`}</Text>
+      <ScrollIndicatorContainer>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {/* Header with personalized greeting */}
+          <View style={styles.header}>
+            <Text style={styles.greeting}>{getGreeting()}, Player</Text>
+            <Text style={styles.welcome}>Welcome to Pluma</Text>
           </View>
-        </View>
 
-        {/* Bottom spacer for tab bar */}
-        <View style={styles.bottomSpacer} />
-      </ScrollView>
+          {/* Featured Drills - Sliding Cards */}
+          <View style={styles.featuredSection}>
+            <Text style={styles.sectionLabel}>FEATURED DRILLS</Text>
+            <SlidingDrillCards
+              drills={featuredDrills}
+              onPressCard={handleDrillPress}
+              onPressFavorite={handleFavoritePress}
+            />
+          </View>
+
+          {/* Category Boxes */}
+          <View style={styles.categoriesSection}>
+            <Text style={styles.sectionLabel}>EXPLORE DRILLS</Text>
+            <View style={styles.categoryGrid}>
+              <CategoryBox
+                title="Footwork"
+                backgroundColor="#FFFFFF"
+                onPress={() => handleCategoryPress('Footwork')}
+              />
+              <CategoryBox
+                title="Accuracy"
+                backgroundColor="#FFFFFF"
+                onPress={() => handleCategoryPress('Accuracy')}
+              />
+              <CategoryBox
+                title="Control"
+                backgroundColor="#FFFFFF"
+                onPress={() => handleCategoryPress('Control')}
+              />
+              <CategoryBox
+                title="Power"
+                backgroundColor="#FFFFFF"
+                onPress={() => handleCategoryPress('Power')}
+              />
+            </View>
+          </View>
+
+          {/* Common Questions (FAQ) */}
+          <View style={styles.faqSection}>
+            <Text style={styles.sectionLabel}>COMMON QUESTIONS</Text>
+            <Accordion items={faqData} />
+          </View>
+
+          {/* Bottom spacer for tab bar */}
+          <View style={styles.bottomSpacer} />
+        </ScrollView>
+      </ScrollIndicatorContainer>
     </Screen>
   );
 }
@@ -75,7 +159,7 @@ const styles = StyleSheet.create({
   // Header
   header: {
     marginTop: spacing.lg,
-    marginBottom: spacing['3xl'],
+    marginBottom: spacing.xl,
   },
   greeting: {
     ...typography.greeting,
@@ -85,6 +169,26 @@ const styles = StyleSheet.create({
     ...typography.welcomeSubtitle,
     color: colors.secondaryText,
     marginTop: spacing.xs,
+  },
+
+  // Featured Section
+  featuredSection: {
+    marginBottom: spacing['2xl'],
+  },
+
+  // Categories Section
+  categoriesSection: {
+    marginBottom: spacing['2xl'],
+  },
+  categoryGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+  },
+
+  // FAQ Section
+  faqSection: {
+    marginBottom: spacing['2xl'],
   },
 
   // Hero Card

@@ -32,11 +32,11 @@ export function InstructionList({ instructions }: InstructionListProps) {
 
 const styles = StyleSheet.create({
   container: {
-    gap: spacing.base,
+    gap: spacing.sm,
   },
   item: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: spacing.sm,
   },
   stepNumber: {
     width: 32,
@@ -45,19 +45,20 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accentDark,
     justifyContent: 'center',
     alignItems: 'center',
+    flexShrink: 0,
   },
   stepNumberText: {
-    ...typography.body,
+    fontSize: 15,
     fontWeight: '600',
     color: colors.white,
   },
   content: {
     flex: 1,
-    paddingTop: spacing.xs,
+    paddingTop: 2,
   },
   text: {
-    ...typography.body,
+    fontSize: 15,
     color: colors.primaryText,
-    lineHeight: 24,
+    lineHeight: 21,
   },
 });

@@ -31,6 +31,7 @@ import { DrillsListScreen } from '../../features/drills/screens/DrillsListScreen
 import { DrillDetailScreen } from '../../features/drills/screens/DrillDetailScreen';
 import { ShotsListScreen } from '../../features/shots/screens/ShotsListScreen';
 import { ShotDetailScreen } from '../../features/shots/screens/ShotDetailScreen';
+import { TrainingScreen } from '../../features/training/screens/TrainingScreen';
 
 import { colors } from '../../shared/constants/theme';
 import { borderRadius } from '../../shared/constants/spacing';
@@ -39,12 +40,14 @@ import type {
   HomeStackParamList,
   DrillsStackParamList,
   ShotsStackParamList,
+  TrainingStackParamList,
 } from './types';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const DrillsStack = createNativeStackNavigator<DrillsStackParamList>();
 const ShotsStack = createNativeStackNavigator<ShotsStackParamList>();
+const TrainingStack = createNativeStackNavigator<TrainingStackParamList>();
 
 /**
  * Home Stack Navigator
@@ -93,6 +96,22 @@ function ShotsStackNavigator() {
       <ShotsStack.Screen name="ShotsList" component={ShotsListScreen} />
       <ShotsStack.Screen name="ShotDetail" component={ShotDetailScreen} />
     </ShotsStack.Navigator>
+  );
+}
+
+/**
+ * Training Stack Navigator
+ */
+function TrainingStackNavigator() {
+  return (
+    <TrainingStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animation: 'slide_from_right',
+      }}
+    >
+      <TrainingStack.Screen name="Training" component={TrainingScreen} />
+    </TrainingStack.Navigator>
   );
 }
 
@@ -220,6 +239,51 @@ function ShotsIcon({ focused }: { focused: boolean; color: string; size: number 
 }
 
 /**
+ * Animated Tab icon component - Training (dumbbell icon)
+ * Smooth transition between states (200ms)
+ */
+function TrainingIcon({ focused }: { focused: boolean; color: string; size: number }) {
+  const scale = useSharedValue(1);
+  const opacity = useSharedValue(focused ? 1 : 0.5);
+
+  useEffect(() => {
+    opacity.value = withTiming(focused ? 1 : 0.5, {
+      duration: 200,
+      easing: Easing.out(Easing.ease),
+    });
+    if (focused) {
+      scale.value = withSpring(1, { damping: 15, stiffness: 300 });
+    }
+  }, [focused, opacity, scale]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+  }));
+
+  return (
+    <Animated.View style={[styles.trainingIconContainer, animatedStyle]}>
+      {/* Left weight */}
+      <View
+        style={[
+          styles.trainingWeight,
+          { backgroundColor: focused ? colors.white : 'transparent', borderColor: colors.white },
+        ]}
+      />
+      {/* Bar */}
+      <View style={[styles.trainingBar, { backgroundColor: colors.white }]} />
+      {/* Right weight */}
+      <View
+        style={[
+          styles.trainingWeight,
+          { backgroundColor: focused ? colors.white : 'transparent', borderColor: colors.white },
+        ]}
+      />
+    </Animated.View>
+  );
+}
+
+/**
  * Tab Navigator component
  *
  * Implements the navigation rules:
@@ -284,6 +348,14 @@ export function TabNavigator() {
         options={{
           tabBarLabel: 'Shots',
           tabBarIcon: ShotsIcon,
+        }}
+      />
+      <Tab.Screen
+        name="TrainingTab"
+        component={TrainingStackNavigator}
+        options={{
+          tabBarLabel: 'Training',
+          tabBarIcon: TrainingIcon,
         }}
       />
     </Tab.Navigator>
@@ -366,5 +438,27 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     borderWidth: 2,
+  },
+
+  // Training icon styles (dumbbell)
+  trainingIconContainer: {
+    width: 24,
+    height: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  trainingWeight: {
+    width: 6,
+    height: 14,
+    borderRadius: 2,
+    borderWidth: 2,
+  },
+
+  trainingBar: {
+    width: 10,
+    height: 3,
+    borderRadius: 1,
   },
 });

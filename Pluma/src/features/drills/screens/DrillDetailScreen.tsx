@@ -27,7 +27,7 @@ import Animated, {
   interpolate,
   Extrapolation,
 } from 'react-native-reanimated';
-import { Pill } from '../../../shared/components/ui/Pill';
+import { Pill, ScrollIndicator } from '../../../shared/components/ui';
 import { InstructionList } from '../components/InstructionList';
 import { useDrill } from '../hooks/useDrills';
 import { colors } from '../../../shared/constants/theme';
@@ -46,9 +46,31 @@ export function DrillDetailScreen({ route, navigation }: DrillDetailScreenProps)
   const insets = useSafeAreaInsets();
   const scrollY = useSharedValue(0);
 
+  // Scroll indicator state
+  const scrollProgress = useSharedValue(0);
+  const isScrolling = useSharedValue(false);
+  const [scrollDimensions, setScrollDimensions] = React.useState({
+    containerHeight: SCREEN_HEIGHT,
+    contentHeight: SCREEN_HEIGHT * 2,
+  });
+
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
       scrollY.value = event.contentOffset.y;
+
+      // Update scroll indicator progress
+      const maxScroll = event.contentSize.height - event.layoutMeasurement.height;
+      if (maxScroll > 0) {
+        scrollProgress.value = Math.min(1, Math.max(0, event.contentOffset.y / maxScroll));
+      }
+      isScrolling.value = true;
+    },
+    onEndDrag: () => {
+      // Delay hiding the indicator
+      isScrolling.value = false;
+    },
+    onMomentumEnd: () => {
+      isScrolling.value = false;
     },
   });
 
@@ -81,6 +103,17 @@ export function DrillDetailScreen({ route, navigation }: DrillDetailScreenProps)
     );
     return { opacity };
   });
+
+  // Handle content size change for scroll indicator
+  const handleContentSizeChange = React.useCallback(
+    (_width: number, contentHeight: number) => {
+      setScrollDimensions((prev) => ({
+        ...prev,
+        contentHeight,
+      }));
+    },
+    []
+  );
 
   if (isLoading) {
     return (
@@ -129,13 +162,6 @@ export function DrillDetailScreen({ route, navigation }: DrillDetailScreenProps)
             <View style={[styles.patternCircle, styles.patternCircle2]} />
             <View style={[styles.patternCircle, styles.patternCircle3]} />
           </View>
-
-          {/* Drill type indicator on hero */}
-          <View style={styles.heroTypeContainer}>
-            <Text style={styles.heroTypeText}>
-              {formatDrillType(drill.type).toUpperCase()}
-            </Text>
-          </View>
         </View>
       </Animated.View>
 
@@ -159,6 +185,7 @@ export function DrillDetailScreen({ route, navigation }: DrillDetailScreenProps)
       {/* Scrollable Content */}
       <Animated.ScrollView
         onScroll={scrollHandler}
+        onContentSizeChange={handleContentSizeChange}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
@@ -168,26 +195,17 @@ export function DrillDetailScreen({ route, navigation }: DrillDetailScreenProps)
 
         {/* Content Card - Overlaps Hero */}
         <View style={styles.contentCard}>
-          {/* Title and Difficulty Row */}
-          <View style={styles.titleRow}>
-            <Text style={styles.title}>{drill.title}</Text>
-            <View style={styles.difficultyBadge}>
-              <Text style={styles.difficultyText}>
-                {formatDifficulty(drill.difficulty)}
-              </Text>
-            </View>
-          </View>
+          {/* Title */}
+          <Text style={styles.title}>{drill.title}</Text>
 
           {/* Tags */}
           <View style={styles.tagsContainer}>
             {drill.tags.slice(0, 4).map((tag) => (
-              <Pill key={tag.id} label={tag.name} size="small" />
+              <Pill key={tag.id} label={tag.name} />
             ))}
             {drill.estimatedDuration && (
               <Pill
                 label={formatDuration(drill.estimatedDuration)}
-                size="small"
-                variant="outlined"
               />
             )}
           </View>
@@ -212,27 +230,18 @@ export function DrillDetailScreen({ route, navigation }: DrillDetailScreenProps)
             <InstructionList instructions={drill.instructions} />
           </View>
 
-          {/* Tips Section (if available) */}
-          {drill.tags.length > 0 && (
-            <View style={styles.tipsSection}>
-              <Text style={styles.tipsTitle}>Training Focus</Text>
-              <View style={styles.tipsContainer}>
-                {drill.tags
-                  .filter((tag) => tag.category === 'training_focus')
-                  .map((tag) => (
-                    <View key={tag.id} style={styles.tipItem}>
-                      <View style={styles.tipDot} />
-                      <Text style={styles.tipText}>{tag.name}</Text>
-                    </View>
-                  ))}
-              </View>
-            </View>
-          )}
-
           {/* Bottom Spacer */}
           <View style={{ height: insets.bottom + 40 }} />
         </View>
       </Animated.ScrollView>
+
+      {/* Scroll Indicator */}
+      <ScrollIndicator
+        scrollProgress={scrollProgress}
+        isScrolling={isScrolling}
+        containerHeight={scrollDimensions.containerHeight}
+        contentHeight={scrollDimensions.contentHeight}
+      />
     </View>
   );
 }
@@ -460,38 +469,6 @@ const styles = StyleSheet.create({
   },
   stepCount: {
     ...typography.caption,
-    color: colors.secondaryText,
-  },
-
-  // Tips Section
-  tipsSection: {
-    backgroundColor: colors.lightGray,
-    borderRadius: borderRadius.card,
-    padding: spacing.lg,
-    marginTop: spacing.base,
-  },
-  tipsTitle: {
-    ...typography.body,
-    fontWeight: '600',
-    color: colors.primaryText,
-    marginBottom: spacing.md,
-  },
-  tipsContainer: {
-    gap: spacing.sm,
-  },
-  tipItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  tipDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: colors.accentDark,
-  },
-  tipText: {
-    ...typography.body,
     color: colors.secondaryText,
   },
 });

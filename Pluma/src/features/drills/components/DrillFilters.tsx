@@ -8,11 +8,11 @@
  * - Duration ranges (quick, 15 min, 20 min, 30+ min)
  */
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { Pill } from '../../../shared/components/ui/Pill';
 import { spacing } from '../../../shared/constants/spacing';
-import type { DrillFilters as DrillFiltersType } from '../types/drill.types';
+import type { DrillFiltersType } from '../types/drill.types';
 
 interface DrillFiltersProps {
   filters: DrillFiltersType;
@@ -27,6 +27,7 @@ const TYPES = ['shot', 'footwork', 'rally'] as const;
 
 // Training focus tags from mockDrills
 const TRAINING_FOCUS_TAGS = [
+  { id: 'tag-footwork', label: 'Footwork' },
   { id: 'tag-speed', label: 'Speed' },
   { id: 'tag-conditioning', label: 'Conditioning' },
   { id: 'tag-accuracy', label: 'Accuracy' },
@@ -46,10 +47,31 @@ const DURATION_OPTIONS = [
 ] as const;
 
 export function DrillFilters({ filters, onFilterChange }: DrillFiltersProps) {
+  const scrollViewRef = useRef<ScrollView>(null);
+
   // Check if a tag is selected
   const isTagSelected = (tagId: string) => {
     return filters.tags?.includes(tagId) ?? false;
   };
+
+  // Scroll to selected tag when filters change
+  useEffect(() => {
+    if (filters.tags && filters.tags.length > 0) {
+      const selectedTagIndex = TRAINING_FOCUS_TAGS.findIndex(
+        (tag) => filters.tags?.includes(tag.id)
+      );
+      
+      if (selectedTagIndex !== -1 && scrollViewRef.current) {
+        // Calculate approximate position (each pill is ~100px wide)
+        const pillWidth = 100;
+        const offset = (selectedTagIndex + DIFFICULTIES.length + TYPES.length + 1) * pillWidth - 50;
+        
+        setTimeout(() => {
+          scrollViewRef.current?.scrollTo({ x: offset, animated: true });
+        }, 100);
+      }
+    }
+  }, [filters.tags]);
 
   // Toggle a tag filter
   const toggleTag = (tagId: string) => {
@@ -97,6 +119,7 @@ export function DrillFilters({ filters, onFilterChange }: DrillFiltersProps) {
   return (
     <View style={styles.container}>
       <ScrollView
+        ref={scrollViewRef}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}

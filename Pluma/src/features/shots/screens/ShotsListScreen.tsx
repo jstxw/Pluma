@@ -20,7 +20,7 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import { Screen } from '../../../shared/components/layout/Screen';
-import { SearchBar } from '../../../shared/components/ui/SearchBar';
+import { SearchBar } from '../../../shared/components/ui';
 import { ShotCard } from '../components/ShotCard';
 import { useShots } from '../hooks/useShots';
 import { colors } from '../../../shared/constants/theme';

@@ -25,8 +25,8 @@ npm test -- -t "test name"         # Run tests matching pattern
 ## Architecture
 
 ### Tech Stack
-- **Framework**: Expo SDK 54 with React Native 0.81
-- **Navigation**: @react-navigation (bottom tabs + native stack)
+- **Framework**: Expo SDK 54 with React Native 0.81.5
+- **Navigation**: @react-navigation (bottom tabs + native stack). Note: expo-router plugin is enabled but navigation is implemented directly with @react-navigation.
 - **State Management**: @tanstack/react-query for server state
 - **Language**: TypeScript with strict mode
 - **Animations**: react-native-reanimated
@@ -43,24 +43,21 @@ src/
 │   │   └── types.ts
 │   └── providers/          # Context providers
 │       ├── ThemeProvider.tsx
-│       └── QueryProvider.tsx
+│       ├── QueryProvider.tsx
+│       └── FavoritesProvider.tsx
 │
-├── features/               # Feature-based modules
-│   ├── home/               # Home tab
-│   ├── drills/             # Drills feature
-│   │   ├── screens/        # DrillsListScreen, DrillDetailScreen
-│   │   ├── components/     # DrillCard, DrillFilters, InstructionList
-│   │   ├── hooks/          # useDrills, useFilters
-│   │   └── types/          # drill.types.ts
-│   └── shots/              # Shots feature (similar structure)
+├── features/               # Feature-based modules (each follows screens/components/hooks/types/data pattern)
+│   ├── home/               # Home tab (landing screen)
+│   ├── drills/             # Drills feature (list + detail screens)
+│   └── shots/              # Shots feature (list + detail screens)
 │
 ├── shared/                 # Shared utilities and components
 │   ├── components/
-│   │   ├── ui/             # Button, Card, Pill, SearchBar, TabBar
-│   │   └── layout/         # Screen, ScrollView
-│   ├── hooks/              # useTheme, useSafeArea
-│   ├── utils/              # formatting, validation
-│   └── constants/          # theme, spacing, typography
+│   │   ├── ui/             # Reusable UI primitives (Button, Card, Pill, SearchBar)
+│   │   └── layout/         # Screen wrappers and scroll containers
+│   ├── hooks/              # Shared hooks (useTheme, useSafeArea)
+│   ├── utils/              # Formatting and validation helpers
+│   └── constants/          # Design tokens (theme, spacing, typography)
 │
 ├── services/               # External integrations
 │   ├── api/                # API client and endpoints
