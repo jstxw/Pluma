@@ -4,7 +4,7 @@
     "slug": "Pluma",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/Pluma_Icon.png",
     "scheme": "pluma",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -15,9 +15,9 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#000000",
-        "foregroundImage": "./assets/images/Pluma_Logo.png",
-        "backgroundImage": "./assets/images/Pluma_Logo.png",
-        "monochromeImage": "./assets/images/Pluma_Logo.png"
+        "foregroundImage": "./assets/images/Pluma_Icon.png",
+        "backgroundImage": "./assets/images/Pluma_Icon.png",
+        "monochromeImage": "./assets/images/Pluma_Icon.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
@@ -25,14 +25,14 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/Pluma_Icon.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/Pluma_Icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
