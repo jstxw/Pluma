@@ -19,8 +19,6 @@ import type { Shot } from '../../../types';
 interface ShotCardProps {
   shot: Shot;
   onPress?: (id: string) => void;
-  onFavorite?: (id: string) => void;
-  isFavorited?: boolean;
   /** Compact mode for grid layout */
   compact?: boolean;
 }
@@ -28,8 +26,6 @@ interface ShotCardProps {
 export function ShotCard({
   shot,
   onPress,
-  onFavorite,
-  isFavorited = false,
   compact = false,
 }: ShotCardProps) {
   if (compact) {
@@ -44,13 +40,6 @@ export function ShotCard({
           imageStyle={styles.compactImageInner}
         >
           {!shot.imageUrl && <View style={styles.imagePlaceholder} />}
-          {onFavorite && (
-            <Card.Favorite
-              isFavorited={isFavorited}
-              onPress={() => onFavorite(shot.id)}
-              style={styles.compactFavoriteButton}
-            />
-          )}
         </Card.Image>
         <View style={styles.compactContent}>
           <Text style={styles.compactTitle} numberOfLines={2}>
@@ -66,13 +55,6 @@ export function ShotCard({
     <Card onPress={() => onPress?.(shot.id)} style={styles.container}>
       <Card.Image source={shot.imageUrl ? shot.imageUrl : undefined}>
         {!shot.imageUrl && <View style={styles.imagePlaceholder} />}
-        {onFavorite && (
-          <Card.Favorite
-            isFavorited={isFavorited}
-            onPress={() => onFavorite(shot.id)}
-            style={styles.favoriteButton}
-          />
-        )}
       </Card.Image>
       <Card.Content>
         <Card.Title>{shot.name}</Card.Title>
@@ -93,10 +75,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.lightGray,
   },
-  favoriteButton: {
-    top: spacing.base,
-    right: spacing.base,
-  },
   tags: {
     flexDirection: 'row',
     gap: spacing.sm,
@@ -111,10 +89,6 @@ const styles = StyleSheet.create({
   },
   compactImageInner: {
     borderRadius: 0,
-  },
-  compactFavoriteButton: {
-    top: spacing.sm,
-    right: spacing.sm,
   },
   compactContent: {
     padding: spacing.md,

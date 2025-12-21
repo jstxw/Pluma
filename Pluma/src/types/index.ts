@@ -124,8 +124,8 @@ export interface Drill {
   type: DrillType;
   /** Estimated duration in minutes */
   estimatedDuration?: number;
-  /** Cover image URL */
-  imageUrl?: string;
+  /** Cover image (use require()) */
+  imageUrl?: number;
   /** Demonstration video URL */
   videoUrl?: string;
   /** When the drill was created */

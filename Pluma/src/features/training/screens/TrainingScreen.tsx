@@ -13,10 +13,9 @@
  *    or use a remote URL string
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, LayoutChangeEvent } from 'react-native';
 import * as THREE from 'three';
-import { Asset } from 'expo-asset';
 import {
   GestureHandlerRootView,
   PanGestureHandler,
@@ -26,29 +25,23 @@ import {
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
+  withTiming,
+  Easing,
 } from 'react-native-reanimated';
 import { Screen } from '../../../shared/components/layout/Screen';
 import { ModelViewer, BottomSheet } from '../../../shared/components/ui';
-import type { Hotspot3D } from '../../../shared/components/ui';
+import type { MeshTapInfo } from '../../../shared/components/ui';
 import { useGLBModel } from '../../../shared/hooks';
 import { colors } from '../../../shared/constants/theme';
 import { spacing, borderRadius } from '../../../shared/constants/spacing';
 import { typography } from '../../../shared/constants/typography';
-import { findMuscleGroupById, type MuscleGroup } from '../data/muscleTraining';
+import { findMuscleGroupByMeshName, type MuscleGroup } from '../data/muscleTraining';
 
-// 3D Hotspot positions (relative to model center after scaling to ~2 units)
-// Adjust these x, y, z values based on your model's pose
-// x: left(-) / right(+), y: down(-) / up(+), z: back(-) / front(+)
-// z should be positive (in front) so hotspots are clickable
-const HOTSPOTS_3D: Hotspot3D[] = [
-  { id: 'shoulder', position: { x: 0.15, y: 0.4, z: 0.4 } },
-  { id: 'forearm', position: { x: -0.4, y: 0.5, z: 0.4 } },
-  { id: 'wrist', position: { x: -0.5, y: 0.6, z: 0.4 } },
-  { id: 'legs', position: { x: 0.1, y: 0, z: 1 } },
-];
+// Local asset - pass require() result directly to useGLBModel hook
+const MODEL_SOURCE = require('../../../../assets/models/Untitled4.glb');
 
-// Local asset
-const MODEL_SOURCE = Asset.fromModule(require('../../../../assets/models/Meshy_AI_Badminton_Motion_1219191436_generate.glb')).uri;
+// Interactive body parts that can be tapped for training tips
+const INTERACTIVE_MESHES = ['Ankles', 'Core', 'Forearms', 'Knees', 'Shoulder', 'Wrist'];
 
 // Slider constants
 const SLIDER_WIDTH = 4;
@@ -60,32 +53,68 @@ export function TrainingScreen() {
   const [zoom, setZoom] = useState(0.5);
   const [sliderHeight, setSliderHeight] = useState(200);
 
+  // Mesh selection state
+  const [selectedMesh, setSelectedMesh] = useState<string | null>(null);
+
   // Bottom sheet state
   const [selectedMuscle, setSelectedMuscle] = useState<MuscleGroup | null>(null);
   const [sheetVisible, setSheetVisible] = useState(false);
-  const [selectedHotspot, setSelectedHotspot] = useState<string | null>(null);
 
   // Animated thumb position
   const thumbPosition = useSharedValue(0.5);
+
+  // Toast notification with fade in/out animation
+  const [showToast, setShowToast] = useState(true);
+  const toastOpacity = useSharedValue(0);
+
+  useEffect(() => {
+    if (showToast) {
+      // Fade in
+      toastOpacity.value = withTiming(1, { duration: 400, easing: Easing.out(Easing.ease) });
+      // Fade out after 3 seconds
+      const fadeOutTimeout = setTimeout(() => {
+        toastOpacity.value = withTiming(0, { duration: 400, easing: Easing.in(Easing.ease) });
+      }, 3000);
+      // Remove from DOM after fade out
+      const hideTimeout = setTimeout(() => setShowToast(false), 3500);
+      return () => {
+        clearTimeout(fadeOutTimeout);
+        clearTimeout(hideTimeout);
+      };
+    }
+  }, []);
+
+  const toastAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: toastOpacity.value,
+  }));
 
   const handleAnimationsLoaded = (animations: THREE.AnimationClip[]) => {
     console.log('Available animations:', animations.map((a) => a.name));
   };
 
-  // Handle hotspot press - find muscle group and show bottom sheet
-  const handleHotspotPress = useCallback((hotspotId: string) => {
-    const muscleGroup = findMuscleGroupById(hotspotId);
+  // Handle mesh tap - find muscle group and show bottom sheet
+  const handleMeshTap = useCallback((info: MeshTapInfo) => {
+    console.log('=== MESH TAP ===');
+    console.log('Mesh name:', info.meshName);
+
+    // Look up training data for this mesh
+    const muscleGroup = findMuscleGroupByMeshName(info.meshName);
+    console.log('Found muscle group:', muscleGroup?.name || 'NONE');
+
     if (muscleGroup) {
+      // Only highlight and show sheet for valid meshes with training data
+      setSelectedMesh(info.meshName);
       setSelectedMuscle(muscleGroup);
-      setSelectedHotspot(hotspotId);
       setSheetVisible(true);
+    } else {
+      // Clear highlight for meshes without training data
+      setSelectedMesh(null);
     }
   }, []);
 
   // Handle bottom sheet dismiss
   const handleDismissSheet = useCallback(() => {
     setSheetVisible(false);
-    setSelectedHotspot(null);
   }, []);
 
   // Handle slider layout to get height
@@ -123,7 +152,7 @@ export function TrainingScreen() {
     <Screen edges={['top']}>
       <View style={styles.header}>
         <Text style={styles.title}>Training</Text>
-        <Text style={styles.subtitle}>Interactive 3D Model</Text>
+        <Text style={styles.subtitle}>Learn how each body part contributes to a powerful shot.</Text>
       </View>
 
       <View style={styles.modelWrapper}>
@@ -154,7 +183,7 @@ export function TrainingScreen() {
           </PanGestureHandler>
         </GestureHandlerRootView>
 
-        {/* Model Viewer with 3D Hotspots */}
+        {/* Model Viewer with mesh selection */}
         <View style={styles.modelContainer}>
           <ModelViewer
             modelUri={modelUri}
@@ -165,16 +194,16 @@ export function TrainingScreen() {
             cameraDistance={2}
             zoom={zoom}
             onAnimationsLoaded={handleAnimationsLoaded}
-            hotspots={HOTSPOTS_3D}
-            onHotspotTap={handleHotspotPress}
-            selectedHotspot={selectedHotspot}
+            onMeshTap={handleMeshTap}
+            highlightedMesh={selectedMesh}
+            interactiveMeshes={INTERACTIVE_MESHES}
           />
         </View>
       </View>
 
       <View style={styles.instructions}>
         <Text style={styles.instructionText}>
-          Rotate model and tap dots for training exercises
+          Rotate model and tap body parts for exercises
         </Text>
       </View>
 
@@ -211,6 +240,13 @@ export function TrainingScreen() {
           </View>
         )}
       </BottomSheet>
+
+      {/* Tip Toast */}
+      {showToast && (
+        <Animated.View style={[styles.toast, toastAnimatedStyle]}>
+          <Text style={styles.toastText}>Tap on any part of the body highlighted in blue for training tips</Text>
+        </Animated.View>
+      )}
     </Screen>
   );
 }
@@ -372,5 +408,27 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.secondaryText,
     flex: 1,
+  },
+  toast: {
+    position: 'absolute',
+    bottom: 120,
+    left: spacing.lg,
+    right: spacing.lg,
+    backgroundColor: colors.accentDark,
+    borderRadius: borderRadius.card,
+    paddingVertical: spacing.base,
+    paddingHorizontal: spacing.lg,
+    alignItems: 'center',
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 8,
+    zIndex: 9999,
+  },
+  toastText: {
+    ...typography.body,
+    color: colors.white,
+    textAlign: 'center',
   },
 });

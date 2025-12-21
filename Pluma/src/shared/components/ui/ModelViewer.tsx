@@ -10,15 +10,18 @@
  * Note: Requires physical device for testing (simulators have poor WebGL support)
  */
 
-import React, { useRef, useEffect, useCallback } from 'react';
-import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
+import { View, StyleSheet, ActivityIndicator, Text, LayoutChangeEvent, PixelRatio } from 'react-native';
 import { GLView, ExpoWebGLRenderingContext } from 'expo-gl';
 import { Renderer } from 'expo-three';
 import {
+  GestureHandlerRootView,
   PanGestureHandler,
   PinchGestureHandler,
+  TapGestureHandler,
   PanGestureHandlerGestureEvent,
   PinchGestureHandlerGestureEvent,
+  TapGestureHandlerGestureEvent,
   State,
 } from 'react-native-gesture-handler';
 import * as THREE from 'three';
@@ -70,6 +73,8 @@ interface ModelViewerProps {
   onMeshTap?: (info: MeshTapInfo) => void;
   /** Currently highlighted mesh name (for visual feedback) */
   highlightedMesh?: string | null;
+  /** Mesh names that are interactive (will have subtle highlight) */
+  interactiveMeshes?: string[];
   /** 3D hotspots to display on the model */
   hotspots?: Hotspot3D[];
   /** Called when a 3D hotspot is tapped */
@@ -90,6 +95,7 @@ export function ModelViewer({
   onAnimationsLoaded,
   onMeshTap,
   highlightedMesh = null,
+  interactiveMeshes = [],
   hotspots = [],
   onHotspotTap,
   selectedHotspot = null,
@@ -106,6 +112,7 @@ export function ModelViewer({
   // Raycaster for tap detection
   const raycasterRef = useRef<THREE.Raycaster>(new THREE.Raycaster());
   const viewSizeRef = useRef({ width: 0, height: 0 });
+  const layoutSizeRef = useRef({ width: 0, height: 0 });
 
   // 3D Hotspot meshes
   const hotspotMeshesRef = useRef<Map<string, THREE.Mesh>>(new Map());
@@ -223,16 +230,33 @@ export function ModelViewer({
 
   // Perform raycast to find tapped hotspot or mesh
   const performRaycast = useCallback((screenX: number, screenY: number): { type: 'hotspot' | 'mesh'; id: string } | null => {
-    if (!cameraRef.current || !sceneRef.current || !viewSizeRef.current.width) {
-      console.log('Raycast skipped: missing camera, scene, or view size');
+    if (!cameraRef.current || !sceneRef.current) {
+      console.log('Raycast skipped: missing camera or scene');
+      return null;
+    }
+
+    // Use layout dimensions if available, otherwise convert GL buffer dimensions
+    let width = layoutSizeRef.current.width;
+    let height = layoutSizeRef.current.height;
+
+    if (!width || !height) {
+      // Fallback: convert GL buffer dimensions to logical pixels
+      const pixelRatio = PixelRatio.get();
+      width = viewSizeRef.current.width / pixelRatio;
+      height = viewSizeRef.current.height / pixelRatio;
+      console.log(`Using GL buffer dimensions / pixelRatio(${pixelRatio}): ${width}x${height}`);
+    }
+
+    if (!width || !height) {
+      console.log('Raycast skipped: no valid dimensions');
       return null;
     }
 
     // Convert screen coordinates to normalized device coordinates (-1 to +1)
-    const x = (screenX / viewSizeRef.current.width) * 2 - 1;
-    const y = -(screenY / viewSizeRef.current.height) * 2 + 1;
+    const x = (screenX / width) * 2 - 1;
+    const y = -(screenY / height) * 2 + 1;
 
-    console.log(`Raycast at screen (${screenX}, ${screenY}) -> NDC (${x.toFixed(2)}, ${y.toFixed(2)})`);
+    console.log(`Raycast at screen (${screenX}, ${screenY}) -> NDC (${x.toFixed(2)}, ${y.toFixed(2)}) [size: ${width.toFixed(0)}x${height.toFixed(0)}]`);
 
     // Update raycaster
     raycasterRef.current.setFromCamera(new THREE.Vector2(x, y), cameraRef.current);
@@ -314,16 +338,21 @@ export function ModelViewer({
       camera.position.z = cameraDistance;
       cameraRef.current = camera;
 
-      // Add lighting
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      // Add soft lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
       scene.add(ambientLight);
 
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-      directionalLight.position.set(5, 5, 5);
+      // Soft hemisphere light for natural lighting
+      const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xe0e0e0, 0.6);
+      scene.add(hemisphereLight);
+
+      // Soft directional lights with lower intensity
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
+      directionalLight.position.set(5, 10, 5);
       scene.add(directionalLight);
 
-      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
-      directionalLight2.position.set(-5, -5, -5);
+      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.2);
+      directionalLight2.position.set(-5, 5, -5);
       scene.add(directionalLight2);
 
       // Load model if URI is available
@@ -354,11 +383,45 @@ export function ModelViewer({
           scene.add(model);
           modelRef.current = model;
 
-          // Log all mesh names for debugging model structure
+          // Log all mesh names and fix double-sided rendering for missing faces
           console.log('=== GLB Model Structure ===');
           model.traverse((child) => {
             if (child instanceof THREE.Mesh) {
               console.log(`Mesh: "${child.name}" | Parent: "${child.parent?.name || 'root'}"`);
+
+              // Check if this mesh is interactive (exact match)
+              const isInteractive = interactiveMeshes.some(
+                (name) => child.name.toLowerCase() === name.toLowerCase()
+              );
+
+              // Enable double-sided rendering
+              if (Array.isArray(child.material)) {
+                child.material.forEach((mat, index) => {
+                  mat.side = THREE.DoubleSide;
+                });
+                // Clone and highlight materials for interactive meshes
+                if (isInteractive) {
+                  child.material = child.material.map((mat) => {
+                    const clonedMat = mat.clone();
+                    if (clonedMat instanceof THREE.MeshStandardMaterial) {
+                      clonedMat.emissive = new THREE.Color(0x4a90d9);
+                      clonedMat.emissiveIntensity = 0.15;
+                    }
+                    return clonedMat;
+                  });
+                }
+              } else if (child.material) {
+                child.material.side = THREE.DoubleSide;
+                // Clone and highlight material for interactive meshes
+                if (isInteractive) {
+                  const clonedMat = child.material.clone();
+                  if (clonedMat instanceof THREE.MeshStandardMaterial) {
+                    clonedMat.emissive = new THREE.Color(0x4a90d9);
+                    clonedMat.emissiveIntensity = 0.15;
+                  }
+                  child.material = clonedMat;
+                }
+              }
             } else if (child instanceof THREE.Bone) {
               console.log(`Bone: "${child.name}"`);
             } else if (child.name) {
@@ -462,7 +525,7 @@ export function ModelViewer({
 
       animate();
     },
-    [modelUri, backgroundColor, autoRotate, autoRotateSpeed, cameraDistance, cleanup, onAnimationsLoaded, hotspots]
+    [modelUri, backgroundColor, autoRotate, autoRotateSpeed, cameraDistance, cleanup, onAnimationsLoaded, hotspots, interactiveMeshes]
   );
 
   // Handle pan gestures for rotation and tap detection
@@ -526,6 +589,26 @@ export function ModelViewer({
     []
   );
 
+  // Handle tap gestures for mesh selection
+  const onTapGestureEvent = useCallback(
+    (event: TapGestureHandlerGestureEvent) => {
+      // Trigger on END for more reliable detection
+      if (event.nativeEvent.state === State.END) {
+        const { x, y } = event.nativeEvent;
+        console.log('=== TAP DETECTED ===', x, y);
+        handleTap(x, y);
+      }
+    },
+    [handleTap]
+  );
+
+  // Handle layout to get view dimensions for raycasting
+  const onViewLayout = useCallback((event: LayoutChangeEvent) => {
+    const { width, height } = event.nativeEvent.layout;
+    layoutSizeRef.current = { width, height };
+    console.log('View layout:', width, 'x', height);
+  }, []);
+
   // Show loading state
   if (isLoading) {
     return (
@@ -555,13 +638,24 @@ export function ModelViewer({
   }
 
   return (
-    <PinchGestureHandler onGestureEvent={onPinchGestureEvent}>
-      <PanGestureHandler onGestureEvent={onPanGestureEvent}>
-        <View style={styles.container}>
-          <GLView style={styles.glView} onContextCreate={onContextCreate} />
+    <GestureHandlerRootView style={styles.container}>
+      <TapGestureHandler
+        onHandlerStateChange={onTapGestureEvent}
+        maxDurationMs={800}
+        maxDelayMs={0}
+        maxDist={20}
+      >
+        <View style={styles.container} onLayout={onViewLayout}>
+          <PinchGestureHandler onGestureEvent={onPinchGestureEvent}>
+            <PanGestureHandler onGestureEvent={onPanGestureEvent}>
+              <View style={styles.container}>
+                <GLView style={styles.glView} onContextCreate={onContextCreate} />
+              </View>
+            </PanGestureHandler>
+          </PinchGestureHandler>
         </View>
-      </PanGestureHandler>
-    </PinchGestureHandler>
+      </TapGestureHandler>
+    </GestureHandlerRootView>
   );
 }
 

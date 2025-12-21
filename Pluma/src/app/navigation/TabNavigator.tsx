@@ -31,6 +31,7 @@ import { DrillsListScreen } from '../../features/drills/screens/DrillsListScreen
 import { DrillDetailScreen } from '../../features/drills/screens/DrillDetailScreen';
 import { ShotsListScreen } from '../../features/shots/screens/ShotsListScreen';
 import { ShotDetailScreen } from '../../features/shots/screens/ShotDetailScreen';
+import { RelatedDrillsScreen } from '../../features/shots/screens/RelatedDrillsScreen';
 import { TrainingScreen } from '../../features/training/screens/TrainingScreen';
 
 import { colors } from '../../shared/constants/theme';
@@ -95,6 +96,7 @@ function ShotsStackNavigator() {
     >
       <ShotsStack.Screen name="ShotsList" component={ShotsListScreen} />
       <ShotsStack.Screen name="ShotDetail" component={ShotDetailScreen} />
+      <ShotsStack.Screen name="RelatedDrills" component={RelatedDrillsScreen} />
     </ShotsStack.Navigator>
   );
 }

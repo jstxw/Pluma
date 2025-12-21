@@ -42,6 +42,7 @@ export type DrillsStackParamList = {
 export type ShotsStackParamList = {
   ShotsList: undefined;
   ShotDetail: { shotId: string };
+  RelatedDrills: { shotId: string; shotName: string };
 };
 
 /**
@@ -109,6 +110,14 @@ export type ShotsListScreenProps = CompositeScreenProps<
 
 export type ShotDetailScreenProps = CompositeScreenProps<
   NativeStackScreenProps<ShotsStackParamList, 'ShotDetail'>,
+  CompositeScreenProps<
+    BottomTabScreenProps<TabParamList, 'ShotsTab'>,
+    NativeStackScreenProps<RootStackParamList>
+  >
+>;
+
+export type RelatedDrillsScreenProps = CompositeScreenProps<
+  NativeStackScreenProps<ShotsStackParamList, 'RelatedDrills'>,
   CompositeScreenProps<
     BottomTabScreenProps<TabParamList, 'ShotsTab'>,
     NativeStackScreenProps<RootStackParamList>

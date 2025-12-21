@@ -25,6 +25,7 @@ export const drillsKeys = {
   list: (filters: DrillFilters) => [...drillsKeys.lists(), filters] as const,
   details: () => [...drillsKeys.all, 'detail'] as const,
   detail: (id: string) => [...drillsKeys.details(), id] as const,
+  byIds: (ids: string[]) => [...drillsKeys.all, 'byIds', ids] as const,
   tags: () => [...drillsKeys.all, 'tags'] as const,
 };
 
@@ -190,6 +191,32 @@ export function useDrillTags() {
     queryKey: drillsKeys.tags(),
     queryFn: fetchTagsMock,
     staleTime: 30 * 60 * 1000, // 30 minutes - tags rarely change
+  });
+}
+
+/**
+ * Hook for fetching multiple drills by their IDs
+ *
+ * @param ids - Array of drill IDs to fetch
+ * @returns Query result with drills data
+ *
+ * @example
+ * ```tsx
+ * const { data: drills, isLoading } = useDrillsByIds(['drill-1', 'drill-2']);
+ * ```
+ */
+export function useDrillsByIds(ids: string[]) {
+  return useQuery({
+    queryKey: drillsKeys.byIds(ids),
+    queryFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      const drills = ids
+        .map((id) => getDrillById(id))
+        .filter((drill): drill is Drill => drill !== undefined);
+      return drills;
+    },
+    enabled: ids.length > 0,
+    staleTime: 5 * 60 * 1000,
   });
 }
 

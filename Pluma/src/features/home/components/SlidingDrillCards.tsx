@@ -56,7 +56,6 @@ interface SlidingDrillCardsProps {
 export function SlidingDrillCards({
   drills,
   onPressCard,
-  onPressFavorite,
 }: SlidingDrillCardsProps) {
   const scrollX = useRef(new Animated.Value(0)).current;
 
@@ -104,6 +103,17 @@ export function SlidingDrillCards({
           onPress={() => onPressCard?.(item)}
           android_ripple={{ color: 'rgba(0, 0, 0, 0.05)' }}
         >
+          {/* Background Image */}
+          <Image
+            source={typeof item.image === 'string' ? { uri: item.image } : item.image}
+            style={styles.backgroundImage}
+            resizeMode="cover"
+          />
+          {/* Gradient Overlay */}
+          <LinearGradient
+            colors={['transparent', 'rgba(0,0,0,0.7)']}
+            style={styles.gradient}
+          />
           {/* Card Content */}
           <View style={styles.content}>
             {/* Location/Subtitle */}
@@ -188,6 +198,22 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+  },
+  gradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: '70%',
+  },
   content: {
     position: 'absolute',
     bottom: 0,
@@ -197,14 +223,14 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     ...typography.caption,
-    color: colors.secondaryText,
+    color: colors.white,
     marginBottom: spacing.xs,
     fontWeight: '600',
   },
   title: {
     ...typography.h1,
     fontSize: 32,
-    color: colors.primaryText,
+    color: colors.white,
     marginBottom: spacing.lg,
     fontWeight: '700',
     lineHeight: 38,

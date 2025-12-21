@@ -15,7 +15,7 @@
  * - Each tab has its own stack navigator for drill/shot details
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -23,16 +23,25 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider, useThemeContext } from './providers/ThemeProvider';
 import { QueryProvider } from './providers/QueryProvider';
 import { FavoritesProvider } from './providers/FavoritesProvider';
+import { DrillTrackerProvider } from './providers/DrillTrackerProvider';
 import { RootNavigator } from './navigation/RootNavigator';
+import { useStatsStore } from '../state/statsStore';
 
 /**
  * App content with theme-aware status bar
  *
  * Renders the status bar with appropriate style based on theme
  * and the root navigation structure.
+ * Also initializes stats tracking on app start.
  */
 function AppContent() {
   const { isDark } = useThemeContext();
+  const setLastOpenedNow = useStatsStore((state) => state.setLastOpenedNow);
+
+  // Update lastOpenedAt timestamp on every app start
+  useEffect(() => {
+    setLastOpenedNow();
+  }, [setLastOpenedNow]);
 
   return (
     <>
@@ -59,7 +68,9 @@ export default function App() {
         <QueryProvider>
           <ThemeProvider>
             <FavoritesProvider>
-              <AppContent />
+              <DrillTrackerProvider>
+                <AppContent />
+              </DrillTrackerProvider>
             </FavoritesProvider>
           </ThemeProvider>
         </QueryProvider>

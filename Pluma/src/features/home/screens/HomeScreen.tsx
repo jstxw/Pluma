@@ -16,9 +16,12 @@ import { ScrollIndicatorContainer } from '../../../shared/components/ui';
 import { colors } from '../../../shared/constants/theme';
 import { spacing, borderRadius } from '../../../shared/constants/spacing';
 import { typography } from '../../../shared/constants/typography';
-import { SlidingDrillCards, CategoryBox, Accordion } from '../components';
+import { SlidingDrillCards, CategoryBox, Accordion, CircularDrillTracker, DrillCalendar } from '../components';
 import { featuredDrills } from '../data/featuredDrills';
 import { faqData } from '../data/faqData';
+import { useDrills } from '../../drills/hooks/useDrills';
+import { useDrillTracker } from '../../../app/providers/DrillTrackerProvider';
+import { useStatsStore } from '../../../state/statsStore';
 import type { HomeScreenProps } from '../../../app/navigation/types';
 
 // Daily inspiration quotes for badminton players
@@ -42,6 +45,15 @@ function getTodayInspiration() {
 export function HomeScreen({ navigation }: HomeScreenProps) {
   const inspiration = getTodayInspiration();
   const currentHour = new Date().getHours();
+
+  // Get persistent drill count from stats store
+  const drillsCompleted = useStatsStore((state) => state.drillsCompleted);
+  const completedDates = useStatsStore((state) => state.completedDates);
+  const hasHydrated = useStatsStore((state) => state.hasHydrated);
+
+  // Get total drills count
+  const { data: drillsData } = useDrills();
+  const totalDrills = drillsData?.total ?? 0;
 
   // Time-based greeting
   const getGreeting = () => {
@@ -104,13 +116,22 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             <Text style={styles.welcome}>Welcome to Pluma</Text>
           </View>
 
+          {/* Drill Tracker - Circular Progress */}
+          <View style={styles.trackerSection}>
+            {hasHydrated && (
+              <CircularDrillTracker
+                completed={drillsCompleted}
+                total={totalDrills}
+              />
+            )}
+          </View>
+
           {/* Featured Drills - Sliding Cards */}
           <View style={styles.featuredSection}>
             <Text style={styles.sectionLabel}>FEATURED DRILLS</Text>
             <SlidingDrillCards
               drills={featuredDrills}
               onPressCard={handleDrillPress}
-              onPressFavorite={handleFavoritePress}
             />
           </View>
 
@@ -141,6 +162,14 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             </View>
           </View>
 
+          {/* Calendar - Shows drill completion history */}
+          {hasHydrated && (
+            <View style={styles.calendarSection}>
+              <Text style={styles.sectionLabel}>TRAINING CALENDAR</Text>
+              <DrillCalendar completedDates={completedDates} />
+            </View>
+          )}
+
           {/* Common Questions (FAQ) */}
           <View style={styles.faqSection}>
             <Text style={styles.sectionLabel}>COMMON QUESTIONS</Text>
@@ -169,6 +198,16 @@ const styles = StyleSheet.create({
     ...typography.welcomeSubtitle,
     color: colors.secondaryText,
     marginTop: spacing.xs,
+  },
+
+  // Tracker Section
+  trackerSection: {
+    marginBottom: spacing['2xl'],
+  },
+  
+  // Calendar Section
+  calendarSection: {
+    marginBottom: spacing['2xl'],
   },
 
   // Featured Section

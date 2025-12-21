@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   Text,
   Pressable,
+  Dimensions,
 } from 'react-native';
 import { Screen } from '../../../shared/components/layout/Screen';
 import { SearchBar } from '../../../shared/components/ui';
@@ -176,11 +177,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   gridRow: {
-    justifyContent: 'space-between',
-    paddingHorizontal: 0,
+    gap: spacing.md,
   },
   gridItem: {
-    width: '48%',
+    flex: 1,
+    maxWidth: (Dimensions.get('window').width - spacing.md * 3) / 2, // Half screen width minus padding
   },
   centered: {
     flex: 1,

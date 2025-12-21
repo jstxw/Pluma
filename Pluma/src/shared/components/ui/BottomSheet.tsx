@@ -25,7 +25,6 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  withSpring,
   runOnJS,
   Easing,
 } from 'react-native-reanimated';
@@ -59,7 +58,7 @@ export function BottomSheet({
   // Animate in/out when visibility changes
   useEffect(() => {
     if (visible) {
-      translateY.value = withSpring(0, { damping: 20, stiffness: 300 });
+      translateY.value = withTiming(0, { duration: 250, easing: Easing.out(Easing.ease) });
       backdropOpacity.value = withTiming(1, { duration: 200 });
     } else {
       translateY.value = withTiming(height, {
@@ -90,7 +89,7 @@ export function BottomSheet({
         runOnJS(onDismiss)();
       } else {
         // Snap back
-        translateY.value = withSpring(0, { damping: 20, stiffness: 300 });
+        translateY.value = withTiming(0, { duration: 200, easing: Easing.out(Easing.ease) });
       }
     }
   };

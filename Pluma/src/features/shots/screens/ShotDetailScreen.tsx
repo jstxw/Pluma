@@ -8,6 +8,8 @@ import { Screen } from '../../../shared/components/layout/Screen';
 import { ScrollView } from '../../../shared/components/layout/ScrollView';
 import { Button, Pill, ScrollIndicatorContainer } from '../../../shared/components/ui';
 import { useShot } from '../hooks/useShots';
+import { useDrillsByIds } from '../../drills/hooks/useDrills';
+import { RelatedDrillsSection } from '../components/RelatedDrillsSection';
 import { colors } from '../../../shared/constants/theme';
 import { spacing } from '../../../shared/constants/spacing';
 import { typography } from '../../../shared/constants/typography';
@@ -18,12 +20,31 @@ interface ShotDetailScreenProps {
   };
   navigation: {
     goBack: () => void;
+    navigate: (screen: string, params?: object) => void;
   };
 }
 
 export function ShotDetailScreen({ route, navigation }: ShotDetailScreenProps) {
   const { shotId } = route.params;
   const { data: shot, isLoading, error } = useShot(shotId);
+  const drillIds = shot?.relatedDrills ?? [];
+  const { data: relatedDrills } = useDrillsByIds(drillIds);
+
+  const handleDrillPress = (drillId: string) => {
+    navigation.navigate('DrillsTab', {
+      screen: 'DrillDetail',
+      params: { drillId },
+    });
+  };
+
+  const handleSeeMoreDrills = () => {
+    if (shot) {
+      navigation.navigate('RelatedDrills', {
+        shotId: shot.id,
+        shotName: shot.name,
+      });
+    }
+  };
 
   if (isLoading) {
     return (
@@ -95,6 +116,16 @@ export function ShotDetailScreen({ route, navigation }: ShotDetailScreenProps) {
                 )}
               </View>
             ))}
+
+            {/* Related Drills Section */}
+            {relatedDrills && relatedDrills.length > 0 && (
+              <RelatedDrillsSection
+                drills={relatedDrills}
+                onDrillPress={handleDrillPress}
+                onSeeMore={handleSeeMoreDrills}
+                shotName={shot.name}
+              />
+            )}
           </View>
         </ScrollView>
       </ScrollIndicatorContainer>

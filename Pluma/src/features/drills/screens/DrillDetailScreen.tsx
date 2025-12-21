@@ -18,6 +18,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
+  Image,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, {
@@ -30,6 +31,7 @@ import Animated, {
 import { Pill, ScrollIndicator } from '../../../shared/components/ui';
 import { InstructionList } from '../components/InstructionList';
 import { useDrill } from '../hooks/useDrills';
+import { useDrillTracker } from '../../../app/providers/DrillTrackerProvider';
 import { colors } from '../../../shared/constants/theme';
 import { spacing, borderRadius } from '../../../shared/constants/spacing';
 import { typography } from '../../../shared/constants/typography';
@@ -43,6 +45,8 @@ const CONTENT_OVERLAP = 40;
 export function DrillDetailScreen({ route, navigation }: DrillDetailScreenProps) {
   const { drillId } = route.params;
   const { data: drill, isLoading, error } = useDrill(drillId);
+  const { logDrill, isDrillLogged } = useDrillTracker();
+  const isLogged = isDrillLogged(drillId);
   const insets = useSafeAreaInsets();
   const scrollY = useSharedValue(0);
 
@@ -152,17 +156,28 @@ export function DrillDetailScreen({ route, navigation }: DrillDetailScreenProps)
 
       {/* Hero Image with Gradient Overlay */}
       <Animated.View style={[styles.heroContainer, heroAnimatedStyle]}>
-        <View style={styles.heroImage}>
-          {/* Gradient overlay for text readability */}
-          <View style={styles.heroGradient} />
-
-          {/* Decorative pattern for visual interest */}
-          <View style={styles.heroPattern}>
-            <View style={styles.patternCircle} />
-            <View style={[styles.patternCircle, styles.patternCircle2]} />
-            <View style={[styles.patternCircle, styles.patternCircle3]} />
+        {drill.imageUrl ? (
+          <Image
+            source={
+              typeof drill.imageUrl === 'string'
+                ? { uri: drill.imageUrl }
+                : drill.imageUrl
+            }
+            style={styles.heroImage}
+            resizeMode="cover"
+          />
+        ) : (
+          <View style={[styles.heroImage, styles.heroPlaceholder]}>
+            {/* Decorative pattern for drills without images */}
+            <View style={styles.heroPattern}>
+              <View style={styles.patternCircle} />
+              <View style={[styles.patternCircle, styles.patternCircle2]} />
+              <View style={[styles.patternCircle, styles.patternCircle3]} />
+            </View>
           </View>
-        </View>
+        )}
+        {/* Gradient overlay for text readability */}
+        <View style={styles.heroGradient} />
       </Animated.View>
 
       {/* Back Button Overlay */}
@@ -228,6 +243,28 @@ export function DrillDetailScreen({ route, navigation }: DrillDetailScreenProps)
             </View>
 
             <InstructionList instructions={drill.instructions} />
+          </View>
+
+          {/* Log Drill Button */}
+          <View style={styles.logDrillSection}>
+            <TouchableOpacity
+              style={[
+                styles.logDrillButton,
+                isLogged && styles.logDrillButtonLogged,
+              ]}
+              onPress={() => logDrill(drillId)}
+              activeOpacity={0.85}
+              disabled={isLogged}
+            >
+              <Text
+                style={[
+                  styles.logDrillButtonText,
+                  isLogged && styles.logDrillButtonTextLogged,
+                ]}
+              >
+                {isLogged ? 'Drill Logged' : 'Log Drill'}
+              </Text>
+            </TouchableOpacity>
           </View>
 
           {/* Bottom Spacer */}
@@ -307,16 +344,18 @@ const styles = StyleSheet.create({
     right: 0,
     height: HERO_HEIGHT,
     zIndex: 0,
+    overflow: 'hidden',
   },
   heroImage: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  heroPlaceholder: {
     backgroundColor: colors.accentDark,
-    overflow: 'hidden',
   },
   heroGradient: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent',
-    // Simulate gradient with layered views
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
   heroPattern: {
     ...StyleSheet.absoluteFillObject,
@@ -469,6 +508,33 @@ const styles = StyleSheet.create({
   },
   stepCount: {
     ...typography.caption,
+    color: colors.secondaryText,
+  },
+
+  // Log Drill Button (following timer.md design - inverted for light bg)
+  logDrillSection: {
+    marginBottom: spacing.xl,
+    alignItems: 'center',
+  },
+  logDrillButton: {
+    backgroundColor: colors.accentDark,
+    paddingHorizontal: 40,
+    paddingVertical: 16,
+    borderRadius: 16,
+    minWidth: 180,
+    alignItems: 'center',
+  },
+  logDrillButtonLogged: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  logDrillButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.white,
+  },
+  logDrillButtonTextLogged: {
     color: colors.secondaryText,
   },
 });

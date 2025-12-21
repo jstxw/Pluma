@@ -12,7 +12,7 @@ import React, { useRef, useEffect } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { Pill } from '../../../shared/components/ui/Pill';
 import { spacing } from '../../../shared/constants/spacing';
-import type { DrillFiltersType } from '../types/drill.types';
+import type { DrillFilters as DrillFiltersType } from '../types/drill.types';
 
 interface DrillFiltersProps {
   filters: DrillFiltersType;
@@ -27,7 +27,6 @@ const TYPES = ['shot', 'footwork', 'rally'] as const;
 
 // Training focus tags from mockDrills
 const TRAINING_FOCUS_TAGS = [
-  { id: 'tag-footwork', label: 'Footwork' },
   { id: 'tag-speed', label: 'Speed' },
   { id: 'tag-conditioning', label: 'Conditioning' },
   { id: 'tag-accuracy', label: 'Accuracy' },

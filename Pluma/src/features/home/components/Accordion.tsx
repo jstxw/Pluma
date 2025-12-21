@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: colors.lightGray,
-    borderRadius: 9999, // Full pill shape
+    borderRadius: 12,
     height: 60,
     paddingHorizontal: spacing.lg,
     gap: spacing.md,

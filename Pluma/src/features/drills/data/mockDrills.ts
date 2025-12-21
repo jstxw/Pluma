@@ -65,7 +65,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 15,
-    imageUrl: require('../images/basic_shadow_footwork.png'),
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-conditioning']),
     instructions: [
       {
@@ -105,6 +105,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 10,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-beginner', 'tag-shot-drill', 'tag-consistency']),
     instructions: [
       {
@@ -144,6 +145,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-beginner', 'tag-serve', 'tag-accuracy']),
     instructions: [
       {
@@ -183,6 +185,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-beginner', 'tag-net', 'tag-frontcourt', 'tag-reaction']),
     instructions: [
       {
@@ -226,6 +229,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'footwork',
     estimatedDuration: 20,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-footwork', 'tag-speed', 'tag-conditioning']),
     instructions: [
       {
@@ -270,6 +274,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 25,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-clear', 'tag-drop', 'tag-rearcourt', 'tag-accuracy']),
     instructions: [
       {
@@ -314,6 +319,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-shot-drill', 'tag-speed', 'tag-reaction']),
     instructions: [
       {
@@ -353,6 +359,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-drive', 'tag-midcourt', 'tag-reaction']),
     instructions: [
       {
@@ -392,6 +399,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-net', 'tag-frontcourt', 'tag-accuracy']),
     instructions: [
       {
@@ -440,6 +448,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 30,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-rally', 'tag-conditioning', 'tag-consistency']),
     instructions: [
       {
@@ -479,6 +488,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'shot',
     estimatedDuration: 25,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-rearcourt', 'tag-power']),
     instructions: [
       {
@@ -523,6 +533,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'shot',
     estimatedDuration: 25,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-advanced', 'tag-shot-drill', 'tag-accuracy']),
     instructions: [
       {
@@ -562,6 +573,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 30,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-rally', 'tag-conditioning', 'tag-speed']),
     instructions: [
       {
@@ -606,6 +618,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-advanced', 'tag-clear', 'tag-rearcourt', 'tag-power']),
     instructions: [
       {
@@ -645,6 +658,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 35,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-conditioning', 'tag-rally', 'tag-speed', 'tag-reaction']),
     instructions: [
       {
@@ -689,6 +703,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-beginner', 'tag-clear', 'tag-rearcourt']),
     instructions: [
       { id: 'inst-16-1', order: 1, text: 'Stand in your rear court in a ready position.' },
@@ -708,6 +723,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-beginner', 'tag-drop', 'tag-control']),
     instructions: [
       { id: 'inst-17-1', order: 1, text: 'Start in the rear court with a partner feeding high lifts.' },
@@ -727,6 +743,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-net', 'tag-frontcourt']),
     instructions: [
       { id: 'inst-18-1', order: 1, text: 'Stand close to the net in a low, balanced stance.' },
@@ -746,6 +763,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-serve', 'tag-accuracy']),
     instructions: [
       { id: 'inst-19-1', order: 1, text: 'Stand behind the service line with a relaxed grip.' },
@@ -765,6 +783,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-beginner', 'tag-serve', 'tag-rearcourt']),
     instructions: [
       { id: 'inst-20-1', order: 1, text: 'Stand behind the singles service line.' },
@@ -784,6 +803,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-clear', 'tag-drop', 'tag-rearcourt', 'tag-control']),
     instructions: [
       {
@@ -833,6 +853,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-beginner', 'tag-clear', 'tag-rearcourt', 'tag-accuracy']),
     instructions: [
       { id: 'inst-22-1', order: 1, text: 'Place cones or markers in the two backcourt corners.' },
@@ -853,6 +874,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-beginner', 'tag-drop', 'tag-rearcourt', 'tag-accuracy']),
     instructions: [
       { id: 'inst-23-1', order: 1, text: 'Place markers along the front service line.' },
@@ -873,6 +895,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 10,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-beginner', 'tag-net', 'tag-frontcourt', 'tag-control']),
     instructions: [
       { id: 'inst-24-1', order: 1, text: 'Stand close to the net in a low, balanced stance.' },
@@ -893,6 +916,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-net', 'tag-footwork', 'tag-control']),
     instructions: [
       { id: 'inst-25-1', order: 1, text: 'Start at the net center in a low ready position.' },
@@ -913,6 +937,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 5,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork']),
     instructions: [
       { id: 'inst-26-1', order: 1, text: 'Stand in base position with knees slightly bent.' },
@@ -932,6 +957,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 8,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork']),
     instructions: [
       { id: 'inst-27-1', order: 1, text: 'Start at the center base position.' },
@@ -951,6 +977,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 8,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork']),
     instructions: [
       { id: 'inst-28-1', order: 1, text: 'Step forward into a frontcourt lunge.' },
@@ -970,6 +997,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 6,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork']),
     instructions: [
       { id: 'inst-29-1', order: 1, text: 'Stand in base position.' },
@@ -989,6 +1017,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 5,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork']),
     instructions: [
       { id: 'inst-30-1', order: 1, text: 'Stand in base position with racket up.' },
@@ -1008,6 +1037,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 10,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-frontcourt']),
     instructions: [
       { id: 'inst-31-1', order: 1, text: 'Start at base position.' },
@@ -1027,6 +1057,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 8,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-rearcourt']),
     instructions: [
       { id: 'inst-32-1', order: 1, text: 'Start at base position.' },
@@ -1046,6 +1077,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 8,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-midcourt']),
     instructions: [
       { id: 'inst-33-1', order: 1, text: 'Start at base position.' },
@@ -1065,6 +1097,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 6,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-frontcourt']),
     instructions: [
       { id: 'inst-34-1', order: 1, text: 'Begin at base position.' },
@@ -1084,6 +1117,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 6,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork']),
     instructions: [
       { id: 'inst-35-1', order: 1, text: 'Start at base position.' },
@@ -1103,6 +1137,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 10,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-frontcourt']),
     instructions: [
       { id: 'inst-36-1', order: 1, text: 'Start at base position.' },
@@ -1122,6 +1157,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 10,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork']),
     instructions: [
       { id: 'inst-37-1', order: 1, text: 'Begin at base position.' },
@@ -1141,6 +1177,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 8,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-frontcourt']),
     instructions: [
       { id: 'inst-38-1', order: 1, text: 'Start near the front service line.' },
@@ -1160,6 +1197,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 8,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-rearcourt']),
     instructions: [
       { id: 'inst-39-1', order: 1, text: 'Begin at base position.' },
@@ -1179,6 +1217,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'beginner',
     type: 'footwork',
     estimatedDuration: 6,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-beginner', 'tag-footwork', 'tag-frontcourt']),
     instructions: [
       { id: 'inst-40-1', order: 1, text: 'Start at base position.' },
@@ -1198,6 +1237,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-smash', 'tag-rearcourt', 'tag-footwork']),
     instructions: [
       { id: 'inst-41-1', order: 1, text: 'Start at base position with racket up.' },
@@ -1217,6 +1257,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-smash', 'tag-accuracy', 'tag-rearcourt']),
     instructions: [
       { id: 'inst-42-1', order: 1, text: 'Place cones/markers in two target zones (e.g., midcourt sidelines or body zone).' },
@@ -1236,6 +1277,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-smash', 'tag-rally']),
     instructions: [
       { id: 'inst-43-1', order: 1, text: 'Attacker starts in rear court; defender starts midcourt.' },
@@ -1255,6 +1297,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-frontcourt']),
     instructions: [
       { id: 'inst-44-1', order: 1, text: 'Start near the net in a low stance.' },
@@ -1274,6 +1317,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-frontcourt', 'tag-control']),
     instructions: [
       { id: 'inst-45-1', order: 1, text: 'Start near the net with racket up.' },
@@ -1293,6 +1337,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-frontcourt', 'tag-footwork']),
     instructions: [
       { id: 'inst-46-1', order: 1, text: 'Feeder stands opposite net with a stack of shuttles.' },
@@ -1312,6 +1357,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 12,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-drive', 'tag-midcourt', 'tag-rally']),
     instructions: [
       { id: 'inst-47-1', order: 1, text: 'Both players stand in midcourt with racket up.' },
@@ -1331,6 +1377,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 15,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-drive', 'tag-midcourt', 'tag-control']),
     instructions: [
       { id: 'inst-48-1', order: 1, text: 'Start a drive exchange from midcourt.' },
@@ -1350,6 +1397,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 18,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-drive', 'tag-rally']),
     instructions: [
       { id: 'inst-49-1', order: 1, text: 'Player A drives from midcourt; Player B blocks softly to the net.' },
@@ -1369,6 +1417,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-clear', 'tag-rearcourt']),
     instructions: [
       { id: 'inst-50-1', order: 1, text: 'Start near base, then move to the rear backhand corner.' },
@@ -1388,6 +1437,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-clear', 'tag-footwork', 'tag-control']),
     instructions: [
       { id: 'inst-51-1', order: 1, text: 'Start at base and do one shadow move to backhand rear corner.' },
@@ -1407,6 +1457,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 18,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-clear', 'tag-accuracy']),
     instructions: [
       { id: 'inst-52-1', order: 1, text: 'Place a cone/marker in the deep forehand rear corner on the opposite side.' },
@@ -1426,6 +1477,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-net', 'tag-frontcourt', 'tag-control']),
     instructions: [
       { id: 'inst-53-1', order: 1, text: 'Worker stands at the net; feeder stands opposite with shuttles.' },
@@ -1445,6 +1497,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 12,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-net', 'tag-frontcourt']),
     instructions: [
       { id: 'inst-54-1', order: 1, text: 'Feeder provides consistent net feeds to one side.' },
@@ -1464,6 +1517,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'footwork',
     estimatedDuration: 18,
+    imageUrl: require('../../home/images/footwork_black_and_white.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-net', 'tag-frontcourt', 'tag-footwork']),
     instructions: [
       { id: 'inst-55-1', order: 1, text: 'Start at base; feeder stands opposite net with shuttles.' },
@@ -1483,6 +1537,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-drop', 'tag-rearcourt', 'tag-control']),
     instructions: [
       { id: 'inst-56-1', order: 1, text: 'Feeder lifts to your rear forehand corner consistently.' },
@@ -1502,6 +1557,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../../home/images/net_kill.jpg'),
     tags: getTagsByIds(['tag-intermediate', 'tag-drop', 'tag-net', 'tag-footwork']),
     instructions: [
       { id: 'inst-57-1', order: 1, text: 'Feeder lifts to your rear court; you play a cross drop.' },
@@ -1521,6 +1577,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-rally', 'tag-control']),
     instructions: [
       { id: 'inst-58-1', order: 1, text: 'Player A starts with a high clear.' },
@@ -1540,6 +1597,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'shot',
     estimatedDuration: 18,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-clear', 'tag-drop', 'tag-rearcourt']),
     instructions: [
       { id: 'inst-59-1', order: 1, text: 'Feeder lifts consistently to your rear court.' },
@@ -1559,6 +1617,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-rally', 'tag-power']),
     instructions: [
       { id: 'inst-60-1', order: 1, text: 'Player A smashes from rear court.' },
@@ -1578,6 +1637,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-speed', 'tag-rally']),
     instructions: [
       { id: 'inst-61-1', order: 1, text: 'Players exchange drives from midcourt.' },
@@ -1597,6 +1657,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-control', 'tag-rally']),
     instructions: [
       { id: 'inst-62-1', order: 1, text: 'Player A plays backhand clear.' },
@@ -1616,6 +1677,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-accuracy', 'tag-rally']),
     instructions: [
       { id: 'inst-63-1', order: 1, text: 'Player A plays cross drop from rear court.' },
@@ -1635,6 +1697,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-rally', 'tag-power']),
     instructions: [
       { id: 'inst-64-1', order: 1, text: 'Player A smashes from rear court.' },
@@ -1654,6 +1717,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 15,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-speed', 'tag-rally']),
     instructions: [
       { id: 'inst-65-1', order: 1, text: 'Both players stand in midcourt.' },
@@ -1673,6 +1737,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-control', 'tag-rally']),
     instructions: [
       { id: 'inst-66-1', order: 1, text: 'Player A plays backhand clear.' },
@@ -1692,6 +1757,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 15,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-speed', 'tag-accuracy']),
     instructions: [
       { id: 'inst-67-1', order: 1, text: 'Start with a gentle net feed.' },
@@ -1711,6 +1777,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-control', 'tag-rally']),
     instructions: [
       { id: 'inst-68-1', order: 1, text: 'Player A plays a cross drop from rear court.' },
@@ -1730,6 +1797,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 15,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-speed', 'tag-rally']),
     instructions: [
       { id: 'inst-69-1', order: 1, text: 'Start with a low backhand serve.' },
@@ -1749,6 +1817,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-accuracy', 'tag-control']),
     instructions: [
       { id: 'inst-70-1', order: 1, text: 'Place target zones in frontcourt and backcourt.' },
@@ -1768,6 +1837,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-power', 'tag-control']),
     instructions: [
       { id: 'inst-71-1', order: 1, text: 'Player A attacks with standard smashes.' },
@@ -1787,6 +1857,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-control', 'tag-rally']),
     instructions: [
       { id: 'inst-72-1', order: 1, text: 'Alternate high and low serves each rally.' },
@@ -1806,6 +1877,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 30,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-speed', 'tag-rally']),
     instructions: [
       { id: 'inst-73-1', order: 1, text: 'Play a free rally with no restrictions.' },
@@ -1825,6 +1897,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-control', 'tag-rally']),
     instructions: [
       { id: 'inst-74-1', order: 1, text: 'Initiate rally with a drop or net shot.' },
@@ -1844,6 +1917,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-speed', 'tag-control']),
     instructions: [
       { id: 'inst-75-1', order: 1, text: 'Start rally with a clear.' },
@@ -1863,6 +1937,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-accuracy', 'tag-control']),
     instructions: [
       { id: 'inst-76-1', order: 1, text: 'Players prioritize cross-court shots.' },
@@ -1882,6 +1957,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-control', 'tag-rally']),
     instructions: [
       { id: 'inst-77-1', order: 1, text: 'One player attacks with controlled smashes.' },
@@ -1901,6 +1977,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-speed', 'tag-control']),
     instructions: [
       { id: 'inst-78-1', order: 1, text: 'Start with slow clear–drop exchanges.' },
@@ -1920,6 +1997,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 30,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-accuracy', 'tag-rally']),
     instructions: [
       { id: 'inst-79-1', order: 1, text: 'Play continuous rally using all shots.' },
@@ -1939,6 +2017,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-power', 'tag-rally']),
     instructions: [
       { id: 'inst-80-1', order: 1, text: 'Player A attacks with smash or drop.' },
@@ -1958,6 +2037,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-power', 'tag-control']),
     instructions: [
       { id: 'inst-81-1', order: 1, text: 'Start with low or high serve.' },
@@ -1977,6 +2057,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'intermediate',
     type: 'rally',
     estimatedDuration: 30,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-intermediate', 'tag-rally', 'tag-speed', 'tag-accuracy', 'tag-control']),
     instructions: [
       { id: 'inst-82-1', order: 1, text: 'Start rally with serve of choice.' },
@@ -1996,6 +2077,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-power', 'tag-rally']),
     instructions: [
       { id: 'inst-83-1', order: 1, text: 'Feeder lifts deep to rear court.' },
@@ -2015,6 +2097,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-accuracy', 'tag-power']),
     instructions: [
       { id: 'inst-84-1', order: 1, text: 'Place targets near sidelines and body zone.' },
@@ -2034,6 +2117,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 30,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-rally']),
     instructions: [
       { id: 'inst-85-1', order: 1, text: 'Rally begins with clears and drops.' },
@@ -2053,6 +2137,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-drop', 'tag-rearcourt']),
     instructions: [
       { id: 'inst-86-1', order: 1, text: 'Feeder lifts to rear court.' },
@@ -2072,6 +2157,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-drop', 'tag-net', 'tag-rally']),
     instructions: [
       { id: 'inst-87-1', order: 1, text: 'Player plays reverse slice drop.' },
@@ -2091,6 +2177,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 30,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-drop', 'tag-control', 'tag-rally']),
     instructions: [
       { id: 'inst-88-1', order: 1, text: 'Rally with fast clears and drives.' },
@@ -2110,6 +2197,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'shot',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-power']),
     instructions: [
       { id: 'inst-89-1', order: 1, text: 'Feeder lifts to backhand rear corner.' },
@@ -2129,6 +2217,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-rally']),
     instructions: [
       { id: 'inst-90-1', order: 1, text: 'Player initiates rally from backhand rear corner.' },
@@ -2148,6 +2237,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'shot',
     estimatedDuration: 30,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-control']),
     instructions: [
       { id: 'inst-91-1', order: 1, text: 'Feeder varies lift depth to backhand corner.' },
@@ -2167,6 +2257,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-speed']),
     instructions: [
       { id: 'inst-92-1', order: 1, text: 'Rally with fast clears and drives.' },
@@ -2186,6 +2277,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'shot',
     estimatedDuration: 18,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-accuracy']),
     instructions: [
       { id: 'inst-93-1', order: 1, text: 'Feeder lifts slightly short.' },
@@ -2205,6 +2297,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-smash', 'tag-rally']),
     instructions: [
       { id: 'inst-94-1', order: 1, text: 'Opponent drives aggressively.' },
@@ -2224,6 +2317,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'shot',
     estimatedDuration: 15,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-net', 'tag-control']),
     instructions: [
       { id: 'inst-95-1', order: 1, text: 'Feeder plays soft net feeds.' },
@@ -2243,6 +2337,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 25,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-net', 'tag-rally']),
     instructions: [
       { id: 'inst-96-1', order: 1, text: 'Rally begins with net exchange.' },
@@ -2262,6 +2357,7 @@ export const mockDrills: Drill[] = [
     difficulty: 'advanced',
     type: 'rally',
     estimatedDuration: 20,
+    imageUrl: require('../images/bandw2.png'),
     tags: getTagsByIds(['tag-advanced', 'tag-net', 'tag-rally']),
     instructions: [
       { id: 'inst-97-1', order: 1, text: 'Player plays spinning net shot.' },

@@ -12,15 +12,13 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Card } from '../../../shared/components/ui/Card';
 import { Pill } from '../../../shared/components/ui/Pill';
 import { colors } from '../../../shared/constants/theme';
-import { spacing } from '../../../shared/constants/spacing';
+import { spacing, borderRadius } from '../../../shared/constants/spacing';
 import { typography } from '../../../shared/constants/typography';
 import type { Drill } from '../../../types';
 
 interface DrillCardProps {
   drill: Drill;
   onPress?: (id: string) => void;
-  onFavorite?: (id: string) => void;
-  isFavorited?: boolean;
   /** Compact mode for grid layout */
   compact?: boolean;
 }
@@ -28,8 +26,6 @@ interface DrillCardProps {
 export function DrillCard({
   drill,
   onPress,
-  onFavorite,
-  isFavorited = false,
   compact = false,
 }: DrillCardProps) {
   if (compact) {
@@ -38,15 +34,13 @@ export function DrillCard({
         onPress={() => onPress?.(drill.id)}
         style={styles.compactContainer}
       >
-        <Card.Image style={styles.compactImage}>
-          <View style={styles.imagePlaceholder} />
-          {onFavorite && (
-            <Card.Favorite
-              isFavorited={isFavorited}
-              onPress={() => onFavorite(drill.id)}
-              style={styles.compactFavoriteButton}
-            />
-          )}
+       <Card.Image
+          source={drill.imageUrl}
+          style={styles.compactImage}
+          imageStyle={styles.compactImageInner}
+        >
+          {!drill.imageUrl && <View style={styles.imagePlaceholder} />}
+         
         </Card.Image>
         <View style={styles.compactContent}>
           <Text style={styles.compactTitle} numberOfLines={2}>
@@ -60,16 +54,8 @@ export function DrillCard({
 
   return (
     <Card onPress={() => onPress?.(drill.id)} style={styles.container}>
-      <Card.Image>
-        {/* Image placeholder - will be replaced with actual image component */}
-        <View style={styles.imagePlaceholder} />
-        {onFavorite && (
-          <Card.Favorite
-            isFavorited={isFavorited}
-            onPress={() => onFavorite(drill.id)}
-            style={styles.favoriteButton}
-          />
-        )}
+      <Card.Image source={drill.imageUrl}>
+        {!drill.imageUrl && <View style={styles.imagePlaceholder} />}
       </Card.Image>
       <Card.Content>
         <Card.Title>{drill.title}</Card.Title>
@@ -91,10 +77,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.lightGray,
   },
-  favoriteButton: {
-    top: spacing.base,
-    right: spacing.base,
-  },
   tags: {
     flexDirection: 'row',
     gap: spacing.sm,
@@ -107,16 +89,17 @@ const styles = StyleSheet.create({
   },
   compactImage: {
     height: 120,
+    width: '100%',
   },
-  compactFavoriteButton: {
-    top: spacing.sm,
-    right: spacing.sm,
+  compactImageInner: {
+    resizeMode: 'cover' as const,
+    borderRadius: 0,
   },
   compactContent: {
     flex: 1,
     padding: spacing.md,
     gap: spacing.sm,
-    justifyContent: 'flex-end', // Push content to bottom
+    justifyContent: 'space-between', // Push content to bottom
   },
   compactTitle: {
     ...typography.body,

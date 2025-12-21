@@ -21,50 +21,89 @@ export interface MuscleGroup {
 
 /**
  * Badminton-specific muscle groups with training exercises
- * meshNames will be updated once we know the actual mesh names from the GLB model
+ * meshNames match the GLB model mesh part names
  */
 export const muscleGroups: MuscleGroup[] = [
   {
-    id: 'wrist',
-    name: 'Wrist',
-    meshNames: ['Mesh10'],
-    description: 'The wrist is crucial for generating power and controlling racket angle in badminton shots.',
-    importance: 'Essential for net shots, flicks, and deceptive plays',
+    id: 'ankles',
+    name: 'Ankles',
+    meshNames: ['Ankles'],
+    description: 'The ankles provide stability during rapid direction changes and cushion landing impacts.',
+    importance: 'Critical for quick footwork, lunges, and injury prevention',
     exercises: [
       {
-        name: 'Wrist Curls',
-        description: 'Hold a light dumbbell, rest forearm on thigh, curl wrist up and down.',
-        reps: '3 sets of 15',
-      },
-      {
-        name: 'Wrist Rotations',
-        description: 'Hold racket, rotate wrist clockwise and counter-clockwise.',
+        name: 'Ankle Circles',
+        description: 'Lift foot off ground, rotate ankle in circles both directions.',
         reps: '2 sets of 20 each direction',
       },
       {
-        name: 'Finger Grip Squeeze',
-        description: 'Squeeze a stress ball or grip strengthener.',
-        duration: '3 sets of 30 seconds',
+        name: 'Single-Leg Balance',
+        description: 'Stand on one foot, maintain balance. Progress to eyes closed.',
+        duration: '3 sets of 30 seconds each leg',
       },
       {
-        name: 'Racket Flicks',
-        description: 'Practice quick wrist flicks with your racket, focusing on snap.',
-        reps: '3 sets of 20',
+        name: 'Resistance Band Dorsiflexion',
+        description: 'Loop band around foot, flex ankle toward shin against resistance.',
+        reps: '3 sets of 15 each foot',
+      },
+      {
+        name: 'Heel Walks',
+        description: 'Walk on heels with toes pointed up across the court.',
+        duration: '3 sets of 30 seconds',
       },
     ],
     tips: [
-      'Keep wrist relaxed during rallies to enable quick reactions',
-      'Strengthen gradually to prevent injury',
-      'Stretch before and after training',
+      'Always warm up ankles before playing',
+      'Consider ankle braces if you have a history of sprains',
+      'Strengthen gradually to build stability',
     ],
   },
   {
-    id: 'forearm',
-    name: 'Forearm',
-    meshNames: ['Mesh10'],
+    id: 'core',
+    name: 'Core',
+    meshNames: ['Core'],
+    description: 'The core muscles stabilize your body during rotational movements and power transfer.',
+    importance: 'Essential for shot power, balance, and injury prevention',
+    exercises: [
+      {
+        name: 'Plank',
+        description: 'Hold a push-up position with forearms on ground, body straight.',
+        duration: '3 sets of 45 seconds',
+      },
+      {
+        name: 'Russian Twists',
+        description: 'Seated, lean back slightly, rotate torso side to side with or without weight.',
+        reps: '3 sets of 20 total',
+      },
+      {
+        name: 'Dead Bug',
+        description: 'Lie on back, extend opposite arm and leg while keeping core engaged.',
+        reps: '3 sets of 10 each side',
+      },
+      {
+        name: 'Medicine Ball Rotations',
+        description: 'Stand with ball, rotate explosively mimicking smash motion.',
+        reps: '3 sets of 12 each side',
+      },
+    ],
+    tips: [
+      'Engage core during all shots for better power transfer',
+      'Breathe steadily during core exercises',
+      'Focus on anti-rotation strength for badminton',
+    ],
+  },
+  {
+    id: 'forearms',
+    name: 'Forearms',
+    meshNames: ['Forearms'],
     description: 'The forearm muscles control racket grip strength and contribute to shot power.',
     importance: 'Provides stability and power transfer from arm to racket',
     exercises: [
+      {
+        name: 'Wrist Curls',
+        description: 'Hold dumbbell, rest forearm on thigh, curl wrist up and down.',
+        reps: '3 sets of 15',
+      },
       {
         name: 'Reverse Wrist Curls',
         description: 'Hold dumbbell with palm facing down, curl wrist upward.',
@@ -76,14 +115,9 @@ export const muscleGroups: MuscleGroup[] = [
         reps: '3 sets of 15',
       },
       {
-        name: 'Towel Wring',
-        description: 'Wring out a wet towel as hard as possible.',
-        reps: '3 sets of 10 wrings',
-      },
-      {
-        name: 'Racket Weight Swings',
-        description: 'Attach weight to racket head, practice slow controlled swings.',
-        reps: '2 sets of 10',
+        name: 'Grip Strengthener',
+        description: 'Squeeze a grip strengthener or stress ball repeatedly.',
+        reps: '3 sets of 20 squeezes',
       },
     ],
     tips: [
@@ -93,9 +127,43 @@ export const muscleGroups: MuscleGroup[] = [
     ],
   },
   {
+    id: 'knees',
+    name: 'Knees',
+    meshNames: ['Knees'],
+    description: 'The knees absorb impact during jumps and lunges, requiring strength and stability.',
+    importance: 'Vital for explosive movements and injury prevention',
+    exercises: [
+      {
+        name: 'Wall Sits',
+        description: 'Back against wall, slide down to 90-degree knee bend, hold.',
+        duration: '3 sets of 45 seconds',
+      },
+      {
+        name: 'Step-Ups',
+        description: 'Step onto a raised platform, drive through heel, step down.',
+        reps: '3 sets of 12 each leg',
+      },
+      {
+        name: 'Terminal Knee Extensions',
+        description: 'With band around knee, straighten from slight bend to full extension.',
+        reps: '3 sets of 15 each leg',
+      },
+      {
+        name: 'Lateral Band Walks',
+        description: 'With band around thighs, walk sideways in athletic stance.',
+        reps: '3 sets of 10 steps each direction',
+      },
+    ],
+    tips: [
+      'Land softly with bent knees to absorb impact',
+      'Strengthen muscles around the knee for stability',
+      'Stop immediately if you feel sharp knee pain',
+    ],
+  },
+  {
     id: 'shoulder',
     name: 'Shoulder',
-    meshNames: ['Mesh10'],
+    meshNames: ['Shoulder'],
     description: 'The shoulder complex enables overhead shots, serves, and provides rotational power.',
     importance: 'Critical for smashes, clears, and defensive shots',
     exercises: [
@@ -127,42 +195,37 @@ export const muscleGroups: MuscleGroup[] = [
     ],
   },
   {
-    id: 'legs',
-    name: 'Legs',
-    meshNames: ['Mesh10'],
-    description: 'Strong legs provide the foundation for court movement, lunges, and explosive jumps.',
-    importance: 'Essential for footwork, lunges, and jump smashes',
+    id: 'wrist',
+    name: 'Wrist',
+    meshNames: ['Wrist'],
+    description: 'The wrist is crucial for generating power and controlling racket angle in badminton shots.',
+    importance: 'Essential for net shots, flicks, and deceptive plays',
     exercises: [
       {
-        name: 'Lateral Lunges',
-        description: 'Step sideways into a lunge, push back to standing.',
-        reps: '3 sets of 10 each side',
+        name: 'Wrist Curls',
+        description: 'Hold a light dumbbell, rest forearm on thigh, curl wrist up and down.',
+        reps: '3 sets of 15',
       },
       {
-        name: 'Split Squat Jumps',
-        description: 'Lunge position, jump and switch legs mid-air.',
-        reps: '3 sets of 8',
+        name: 'Wrist Rotations',
+        description: 'Hold racket, rotate wrist clockwise and counter-clockwise.',
+        reps: '2 sets of 20 each direction',
       },
       {
-        name: 'Calf Raises',
-        description: 'Rise onto toes, lower slowly, repeat.',
+        name: 'Finger Grip Squeeze',
+        description: 'Squeeze a stress ball or grip strengthener.',
+        duration: '3 sets of 30 seconds',
+      },
+      {
+        name: 'Racket Flicks',
+        description: 'Practice quick wrist flicks with your racket, focusing on snap.',
         reps: '3 sets of 20',
-      },
-      {
-        name: 'Box Jumps',
-        description: 'Jump onto a stable platform, step down, repeat.',
-        reps: '3 sets of 10',
-      },
-      {
-        name: 'Court Footwork Drills',
-        description: 'Practice 6-corner footwork pattern at game speed.',
-        duration: '3 sets of 1 minute',
       },
     ],
     tips: [
-      'Focus on landing softly to protect knees',
-      'Maintain low center of gravity during movement',
-      'Stretch hip flexors regularly',
+      'Keep wrist relaxed during rallies to enable quick reactions',
+      'Strengthen gradually to prevent injury',
+      'Stretch before and after training',
     ],
   },
 ];

@@ -78,19 +78,28 @@ src/
 
 The app uses a stack-in-tabs pattern:
 - **RootNavigator**: Top-level NavigationContainer with root stack
-- **TabNavigator**: Bottom tabs (Home, Drills, Shots) each containing their own native stack
+- **TabNavigator**: Bottom tabs (Home, Drills, Shots, Training) each containing their own native stack
 - Each tab has its own stack navigator for list → detail navigation
 - Tab state is preserved when switching tabs
 - Tapping inactive tab resets that stack to root
 
 Navigation types are defined in `src/app/navigation/types.ts`.
 
+## Data Layer
+
+- **Mock Data**: All data is currently served from mock files in each feature's `data/` folder (e.g., `mockDrills.ts`, `mockShots.ts`)
+- **React Query Hooks**: Each feature has hooks in its `hooks/` folder that wrap mock data with simulated network delays
+- **Key Hooks**:
+  - `useDrills(filters?)`, `useDrill(id)`, `useDrillsByIds(ids[])` - Drill fetching
+  - `useShots(filters?)`, `useShot(id)`, `useRelatedDrills(shotId)` - Shot fetching
+- **Cross-feature Navigation**: Shots can link to related drills via `relatedDrills[]` field
+
 ## Documentation
 
 - **DESIGN_INSTRUCTIONS.md**: Design guidelines (colors, typography, spacing, components)
 
 ### Design System Key Points
-- **Navigation**: Three bottom tabs (Home, Drills, Shots)
+- **Navigation**: Four bottom tabs (Home, Drills, Shots, Training)
 - **Colors**: White (#FFFFFF), black (#000000), dark accent (#1A1A1A), light gray (#F5F5F5)
 - **Spacing**: 4px grid (4, 8, 12, 16, 20, 24, 32, 40)
 - **Border radius**: 24px for cards, 20-28px for buttons

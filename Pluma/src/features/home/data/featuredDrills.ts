@@ -16,6 +16,15 @@ const featuredImages = [
   'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop',
 ];
 
+// Featured drill images
+const drillSpecificImages: Record<string, any> = {
+  'drill-1': require('../images/Badminton_Footwork.png'),
+  'drill-3': require('../images/net.png'),
+  'drill-2': require('../images/practice.png'),
+  'drill-4': require('../images/net_kill.jpg'),
+  'drill-41': require('../images/smashphoto.png'),
+};
+
 /**
  * Transforms a Drill into a FeaturedDrill format
  */
@@ -40,7 +49,7 @@ function transformToFeaturedDrill(drill: Drill, imageIndex: number): FeaturedDri
     subtitle: `${difficulty} · ${courtPosition}`,
     rating: Math.round(rating * 10) / 10,
     reviews,
-    image: drill.imageUrl || featuredImages[imageIndex % featuredImages.length],
+    image: drillSpecificImages[drill.id] || drill.imageUrl || featuredImages[imageIndex % featuredImages.length],
     isFavorite: false,
   };
 }
