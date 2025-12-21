@@ -2,7 +2,7 @@
   "expo": {
     "name": "Pluma",
     "slug": "Pluma",
-    "version": "1.0.0",
+    "version": "1.5.5",
     "orientation": "portrait",
     "icon": "./assets/images/Pluma_Icon.png",
     "scheme": "pluma",
