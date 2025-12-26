@@ -1,12 +1,5 @@
 /**
  * FeatureCard - Promotional feature cards with icons
- *
- * Features:
- * - Customizable background colors
- * - Icon display
- * - Title and subtitle
- * - Optional badge
- * - Flexible sizing
  */
 
 import React from 'react';

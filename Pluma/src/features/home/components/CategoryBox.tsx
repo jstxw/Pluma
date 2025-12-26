@@ -1,11 +1,10 @@
 /**
  * CategoryBox - Colorful category navigation box
- *
  * Features:
- * - Colored backgrounds
- * - Title text
- * - Optional decorative elements
- * - Arrow button for navigation
+ * Colored backgrounds
+ * Title text
+ * Optional decorative elements
+ * Arrow button for navigation
  */
 
 import React from 'react';
@@ -15,9 +14,9 @@ import { spacing } from '../../../shared/constants/spacing';
 import { typography } from '../../../shared/constants/typography';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
-const GRID_PADDING = spacing.xl * 2; // Side padding
+const GRID_PADDING = spacing.xl * 2;
 const GAP = spacing.sm;
-const BOX_SIZE = (SCREEN_WIDTH - GRID_PADDING - GAP) / 2; // Exactly 2 boxes per row
+const BOX_SIZE = (SCREEN_WIDTH - GRID_PADDING - GAP) / 2;
 
 export interface CategoryBoxProps {
   title: string;

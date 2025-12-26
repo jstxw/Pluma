@@ -1,11 +1,10 @@
 /**
  * Accordion - Q&A FAQ Component with pill-shaped headers
- *
  * Features:
- * - Pill-shaped question headers
- * - Rotating chevron icon
- * - Smooth expand/collapse animation
- * - Single-open behavior
+ * Pill-shaped question headers
+ * Rotating chevron icon
+ * Smooth expand/collapse animation
+ * Single-open behavior
  */
 
 import React, { useState } from 'react';

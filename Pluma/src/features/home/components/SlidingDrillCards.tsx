@@ -1,11 +1,6 @@
 /**
- * SlidingDrillCards - Horizontally scrollable drill cards with snap and scale animation
- *
- * Features:
- * - Snaps to center card
- * - Peeks next/previous cards
- * - Scales centered card slightly larger
- * - Smooth animations using Animated API
+ * SlidingDrillCards - Horizontally scrollable drill cards with scale/translateY animations
+ * Implements snap-to-interval scrolling with interpolated transforms on scroll position
  */
 
 import React, { useRef } from 'react';
@@ -26,13 +21,12 @@ import { typography } from '../../../shared/constants/typography';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-// Card sizing (matching screenshot proportions)
 const CARD_WIDTH = SCREEN_WIDTH * 0.78;
 const CARD_HEIGHT = 380;
 const SPACING = -20; // Negative spacing for stacked effect
 const SIDE_PADDING = (SCREEN_WIDTH - CARD_WIDTH) / 2;
 
-// Animation constants
+// Animation interpolation values
 const SCALE_CENTER = 1.0;
 const SCALE_NEIGHBOR = 0.94;
 const TRANSLATE_Y_NEIGHBOR = 10;
@@ -60,28 +54,26 @@ export function SlidingDrillCards({
   const scrollX = useRef(new Animated.Value(0)).current;
 
   const renderCard = ({ item, index }: { item: FeaturedDrill; index: number }) => {
-    // Calculate input range for this card
+    // Input range: previous card, current card, next card positions
     const inputRange = [
       (index - 1) * (CARD_WIDTH + SPACING),
       index * (CARD_WIDTH + SPACING),
       (index + 1) * (CARD_WIDTH + SPACING),
     ];
 
-    // Scale animation: center card is larger
+    // Interpolated animations: scale, translateY, opacity
     const scale = scrollX.interpolate({
       inputRange,
       outputRange: [SCALE_NEIGHBOR, SCALE_CENTER, SCALE_NEIGHBOR],
       extrapolate: 'clamp',
     });
 
-    // Subtle vertical shift for non-centered cards
     const translateY = scrollX.interpolate({
       inputRange,
       outputRange: [TRANSLATE_Y_NEIGHBOR, 0, TRANSLATE_Y_NEIGHBOR],
       extrapolate: 'clamp',
     });
 
-    // Opacity for subtle fade
     const opacity = scrollX.interpolate({
       inputRange,
       outputRange: [0.8, 1, 0.8],
@@ -103,28 +95,20 @@ export function SlidingDrillCards({
           onPress={() => onPressCard?.(item)}
           android_ripple={{ color: 'rgba(0, 0, 0, 0.05)' }}
         >
-          {/* Background Image */}
           <Image
             source={typeof item.image === 'string' ? { uri: item.image } : item.image}
             style={styles.backgroundImage}
             resizeMode="cover"
           />
-          {/* Gradient Overlay */}
           <LinearGradient
             colors={['transparent', 'rgba(0,0,0,0.7)']}
             style={styles.gradient}
           />
-          {/* Card Content */}
           <View style={styles.content}>
-            {/* Location/Subtitle */}
             <Text style={styles.subtitle}>{item.subtitle}</Text>
-
-            {/* Title */}
             <Text style={styles.title} numberOfLines={2}>
               {item.title}
             </Text>
-
-            {/* See More Button */}
             <Pressable
               style={styles.seeMoreButton}
               onPress={() => onPressCard?.(item)}

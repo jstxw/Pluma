@@ -1,13 +1,5 @@
 /**
- * CircularDrillTracker - Minimal black & white circular progress tracker
- *
- * Design from timer.md:
- * - Black background, white elements only
- * - Circular ring: 220-280px diameter, 10-14px stroke
- * - Base ring: white at ~15% opacity
- * - Progress arc: white at 100%
- * - Center: large number, "drills" label, "of X" total
- * - Animation: 600-900ms on load, 250-400ms on increment
+ * CircularDrillTracker - Minimal black & white circular progress tracker=
  */
 
 import React, { useEffect } from 'react';
@@ -22,9 +14,8 @@ import Animated, {
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-// Design constants from timer.md
-const RING_SIZE = 250; // 220-280px diameter
-const STROKE_WIDTH = 12; // 10-14px stroke
+const RING_SIZE = 250;
+const STROKE_WIDTH = 12;
 const RADIUS = (RING_SIZE - STROKE_WIDTH) / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
@@ -32,9 +23,8 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const COLORS = {
   background: '#000000',
   white: '#FFFFFF',
-  baseRing: 'rgba(255, 255, 255, 0.15)', // ~15% opacity
-  progressRing: '#FFFFFF', // 100% opacity
-  primaryText: '#FFFFFF',
+  baseRing: 'rgba(255, 255, 255, 0.15)',
+  progressRing: '#FFFFFF', 
   secondaryText: 'rgba(255, 255, 255, 0.65)',
   tertiaryText: 'rgba(255, 255, 255, 0.45)',
 };
@@ -58,8 +48,6 @@ export function CircularDrillTracker({
 
   // Animate progress on mount and when completed changes
   useEffect(() => {
-    // Initial load: 600-900ms ease-out
-    // Subsequent updates: 250-400ms
     const duration = progress.value === 0 ? 800 : 350;
 
     progress.value = withTiming(targetProgress, {
@@ -151,7 +139,7 @@ const styles = StyleSheet.create({
   completedNumber: {
     fontSize: 52,
     fontWeight: '700',
-    color: COLORS.primaryText,
+    color: COLORS.white,
     fontVariant: ['tabular-nums'], // Fixed width alignment
   },
   // Primary label: 16-18pt, weight 500-600

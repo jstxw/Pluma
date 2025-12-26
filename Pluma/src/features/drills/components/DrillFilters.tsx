@@ -1,11 +1,7 @@
 /**
  * DrillFilters component for filtering drills
- *
- * Includes filters for:
- * - Difficulty levels (beginner, intermediate, advanced)
- * - Drill types (shot, footwork, rally)
- * - Training focus tags (speed, conditioning, accuracy, etc.)
- * - Duration ranges (quick, 15 min, 20 min, 30+ min)
+ * Includes filters for: Difficulty levels, Drill types (shot, footwork, rally), Training focus tags (speed, conditioning, accuracy, etc.)
+ * Duration ranges (quick, 15 min, 20 min, 30+ min)
  */
 
 import React, { useRef, useEffect } from 'react';
@@ -106,7 +102,6 @@ export function DrillFilters({ filters, onFilterChange }: DrillFiltersProps) {
     filters.minDuration === undefined &&
     filters.maxDuration === undefined;
 
-  // Clear all filters
   const clearAllFilters = () => {
     onFilterChange('difficulty', undefined);
     onFilterChange('type', undefined);
@@ -123,7 +118,6 @@ export function DrillFilters({ filters, onFilterChange }: DrillFiltersProps) {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {/* All / Clear filter */}
         <Pill
           label="All"
           selected={hasNoFilters}

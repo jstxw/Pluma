@@ -2,10 +2,6 @@
  * DrillCalendar - Minimal black & white calendar showing drill completion
  *
  * Design:
- * - Black background with white text
- * - Dates with drills completed get a black ring (like in reference image)
- * - Current date highlighted differently
- * - Minimal, clean layout
  */
 
 import React, { useState, useMemo } from 'react';
@@ -24,7 +20,6 @@ const COLORS = {
 };
 
 interface DrillCalendarProps {
-  /** Array of completed date strings in YYYY-MM-DD format */
   completedDates: string[];
 }
 

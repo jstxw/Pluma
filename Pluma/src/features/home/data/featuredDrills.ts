@@ -1,8 +1,3 @@
-/**
- * Featured Drills Data
- * Curated drills from mockDrills for the home screen sliding cards
- */
-
 import type { FeaturedDrill } from '../components';
 import type { Drill } from '../../../types';
 import { mockDrills } from '../../drills/data/mockDrills';
@@ -54,10 +49,6 @@ function transformToFeaturedDrill(drill: Drill, imageIndex: number): FeaturedDri
   };
 }
 
-/**
- * Select featured drills - pick diverse, high-quality drills
- * Mix of difficulty levels and drill types
- */
 const selectedDrillIds = [
   'drill-1',  // Basic Shadow Footwork (Beginner)
   'drill-41', // Drive Pressure Rally (Intermediate) - if exists

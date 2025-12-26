@@ -1,6 +1,5 @@
 /**
  * Home Components
- * Barrel export for home feature components
  */
 
 export { SlidingDrillCards } from './SlidingDrillCards';

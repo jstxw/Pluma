@@ -1,12 +1,6 @@
 /**
  * DrillCard component for displaying drill preview
- *
- * Uses animated Card component with:
- * - Press animation (scale 0.98)
- * - Animated favorite button with pulse effect
- * - Compact mode for grid layouts
  */
-
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Card } from '../../../shared/components/ui/Card';
