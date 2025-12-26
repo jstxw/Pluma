@@ -2,9 +2,21 @@
   <img src="Pluma/images/Pluma_Icon.png" alt="Pluma Logo" width="200"/>
 </div>
 
-# Pluma
-
 A comprehensive badminton drill catalog and training companion app built with React Native and Expo. Pluma helps badminton players of all skill levels improve their game through structured drills, shot techniques, and interactive 3D training visualizations.
+
+<p align="center">
+  <img src="Pluma/images/IMG_1546.PNG" width="180" />
+  <img src="Pluma/images/IMG_1547.PNG" width="180" />
+  <img src="Pluma/images/IMG_1548.PNG" width="180" />
+  <img src="Pluma/images/IMG_1549.PNG" width="180" />
+</p>
+
+<p align="center">
+  <img src="Pluma/images/IMG_1550.PNG" width="180" />
+  <img src="Pluma/images/IMG_1551.PNG" width="180" />
+  <img src="Pluma/images/IMG_1552.PNG" width="180" />
+  <img src="Pluma/images/IMG_1553.PNG" width="180" />
+</p>
 
 ## ✨ Features
 
